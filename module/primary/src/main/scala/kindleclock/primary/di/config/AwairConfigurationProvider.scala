@@ -1,0 +1,21 @@
+package kindleclock.primary.di.config
+
+import java.net.URI
+import javax.inject.Inject
+import javax.inject.Provider
+import kindleclock.domain.model.config.api.AwairConfiguration
+import play.api.Configuration
+import scala.concurrent.duration._
+
+class AwairConfigurationProvider @Inject() (
+  configuration: Configuration
+) extends Provider[AwairConfiguration] {
+  private lazy val config = AwairConfiguration(
+    new URI(configuration.get[String]("awair.endpoint")),
+    configuration.get[String]("awair.oauth.token"),
+    configuration.get[Int]("awair.cache.expire-seconds").seconds,
+    configuration.get[Int]("awair.interval-minutes")
+  )
+
+  override def get(): AwairConfiguration = config
+}

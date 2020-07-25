@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package kindleclock.infra.datamodel.awair;
+
+message AwairDataModel {
+  int32 score = 1;
+  double temperature = 2;
+  double humidity = 3;
+  int32 co2 = 4;
+  int32 voc = 5;
+  double pm25 = 6;
+}
