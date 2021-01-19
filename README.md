@@ -1,6 +1,8 @@
 Kindle Clock
 =====================================
 
+![CI](https://github.com/y-yu/kindle-clock/workflows/CI/badge.svg)
+
 ![Example image](https://y-yu.github.io/kindle-clock/example.png)
 
 ## How to use
