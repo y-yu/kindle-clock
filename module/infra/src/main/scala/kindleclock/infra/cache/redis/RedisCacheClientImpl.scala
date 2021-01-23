@@ -4,24 +4,26 @@ import akka.util.ByteString
 import javax.inject.Inject
 import kindleclock.infra.datamodel.awair.AwairDataModel
 import kindleclock.domain.interfaces.infra.cache.CacheClient
+import kindleclock.domain.model.config.api.AwairConfiguration
 import redis.ByteStringFormatter
 import redis.RedisClient
 import scala.concurrent.Future
 import scala.concurrent.duration.Duration
 
 class RedisCacheClientImpl @Inject() (
-  redisClient: RedisClient
+  redisClient: RedisClient,
+  awairConfiguration: AwairConfiguration
 ) extends CacheClient[AwairDataModel] {
   import RedisCacheClientImpl._
 
   override def get: Future[Option[AwairDataModel]] =
     redisClient.get(
-      RedisCacheClientImpl.keyName
+      awairConfiguration.cacheKeyName
     )
 
   override def save(a: AwairDataModel, expiration: Duration): Future[Boolean] =
     redisClient.set(
-      key = RedisCacheClientImpl.keyName,
+      key = awairConfiguration.cacheKeyName,
       value = a,
       exSeconds =
         if (expiration.isFinite)
@@ -32,8 +34,6 @@ class RedisCacheClientImpl @Inject() (
 }
 
 object RedisCacheClientImpl {
-  private val keyName = "awair_cache"
-
   implicit val byteStringFormatter: ByteStringFormatter[AwairDataModel] =
     new ByteStringFormatter[AwairDataModel] {
       override def serialize(data: AwairDataModel): ByteString =

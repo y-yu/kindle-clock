@@ -14,7 +14,8 @@ class AwairConfigurationProvider @Inject() (
     new URI(configuration.get[String]("awair.endpoint")),
     configuration.get[String]("awair.oauth.token"),
     configuration.get[Int]("awair.cache.expire-seconds").seconds,
-    configuration.get[Int]("awair.interval-minutes")
+    configuration.get[Int]("awair.interval-minutes"),
+    configuration.get[String]("awair.cache.key-name")
   )
 
   override def get(): AwairConfiguration = config

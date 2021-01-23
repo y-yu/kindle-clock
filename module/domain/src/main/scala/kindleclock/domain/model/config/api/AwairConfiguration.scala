@@ -7,5 +7,6 @@ case class AwairConfiguration(
   awairEndpoint: URI,
   oauthToken: String,
   cacheExpire: Duration,
-  intervalMinutes: Int
+  intervalMinutes: Int,
+  cacheKeyName: String
 )
