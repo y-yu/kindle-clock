@@ -100,8 +100,8 @@ project/plugins/project/
 *.class
 *.log
 
-pgp.sbt
-
 .bsp
+
+secret_env.list
 
 # End of https://www.gitignore.io/api/sbt,scala,intellij

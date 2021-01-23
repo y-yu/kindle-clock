@@ -1,10 +1,10 @@
-import sbt.Test
 import sbt._
 import Keys._
-//import play.sbt._
 import org.scalafmt.sbt.ScalafmtPlugin.autoImport._
 
 val scala213Version = "2.13.4"
+val projectName = "kindle-clock"
+
 val defaultSettings = Seq(
   scalaVersion := scala213Version,
   scalacOptions ++= Seq(
@@ -27,7 +27,8 @@ lazy val root =
   project
     .in(file("."))
     .settings(
-      name := "kindle-clock"
+      name := projectName,
+      version := "0.1"
     )
     .aggregate(
       domain,
@@ -84,6 +85,8 @@ lazy val infra =
 lazy val primary = project
   .in(file("module/primary"))
   .settings(
+    packageName in Docker := projectName,
+    dockerExposedPorts += 9000,
     (Compile / unmanagedResourceDirectories) += baseDirectory.value / "conf",
     (Runtime / unmanagedClasspath) += baseDirectory.value / "conf",
     libraryDependencies += guice
