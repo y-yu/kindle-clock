@@ -1,3 +1,4 @@
+import sbt.Test
 import sbt._
 import Keys._
 //import play.sbt._
@@ -62,6 +63,8 @@ lazy val infra =
     .in(file("module/infra"))
     .settings(DockerUtils.runRedisSetting)
     .settings(
+      // The Redis tests doesn't work if they run parallel.
+      parallelExecution := false,
       Compile / PB.protoSources := Seq(
           baseDirectory.value / "src" / "proto"
         ),
@@ -69,7 +72,8 @@ lazy val infra =
           scalapb.gen(flatPackage = true) -> (sourceManaged in Compile).value
         ),
       libraryDependencies ++= Dependencies.infra,
-      Test / test := (Test / test).dependsOn(runRedis).value
+      Test / test := (Test / test).dependsOn(runRedis).value,
+      Test / testOnly := (Test / testOnly).dependsOn(runRedis).evaluated
     )
     .settings(defaultSettings: _*)
     .dependsOn(

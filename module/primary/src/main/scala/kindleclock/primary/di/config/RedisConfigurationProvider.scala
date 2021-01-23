@@ -12,7 +12,8 @@ class RedisConfigurationProvider @Inject() (
     RedisConfiguration(
       configuration.get[String]("redis.host"),
       configuration.get[Int]("redis.port"),
-      configuration.getOptional[String]("redis.password")
+      configuration.getOptional[String]("redis.password"),
+      configuration.get[Boolean]("redis.use-ssl")
     )
 
   override def get(): RedisConfiguration = config

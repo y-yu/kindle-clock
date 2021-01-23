@@ -17,6 +17,7 @@ object Dependencies {
 
   lazy val infra = Seq(
     "com.github.etaty" %% "rediscala" % "1.9.0",
+    "redis.clients" % "jedis" % "3.5.0",
     "com.squareup.okhttp3" % "okhttp" % "4.8.0"
   )
 

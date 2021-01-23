@@ -5,45 +5,30 @@ import kindleclock.infra.datamodel.awair.AwairDataModel
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.diagrams.Diagrams
 import org.scalatest.flatspec.AnyFlatSpec
-import redis.RedisClient
+import redis.clients.jedis.Jedis
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 
-class RedisCacheClientImplTest extends AnyFlatSpec with Diagrams with BeforeAndAfterAll {
+class RedisCacheClientJedisImplTest extends AnyFlatSpec with Diagrams with BeforeAndAfterAll {
   implicit val actorSystem: ActorSystem = ActorSystem()
 
-  val redisClientForDocker = RedisClient(
+  val jedis = new Jedis(
     "localhost",
-    6379
+    6379,
+    false
   )
 
   trait SetUpWithDockerRedis extends DockerRedisConfiguration {
-
-    val sut = new RedisCacheClientImpl(
-      redisClientForDocker,
+    val sut = new RedisCacheClientJedisImpl(
+      jedis,
       awairConfiguration
     )
   }
 
   override def beforeAll(): Unit = {
     super.beforeAll()
-    redisClientForDocker.flushall()
-  }
-
-  "byteStringFormatter" should "be equal the original when deserialize the serialized data" in {
-    val data = AwairDataModel(
-      55,
-      1.0,
-      2.0,
-      3,
-      4,
-      5.0
-    )
-
-    val sut = RedisCacheClientImpl.byteStringFormatter
-
-    assert(sut.deserialize(sut.serialize(data)) == data)
+    jedis.flushAll()
   }
 
   "save" should "store the data successfully" in new SetUpWithDockerRedis {
