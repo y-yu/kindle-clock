@@ -56,13 +56,14 @@ class AwairApiClientImpl @Inject() (
     val now = ZonedDateTime.now(clock.withZone(DefaultTimeZone.jst))
 
     for {
-      cachedDataOpt <- cacheClient.get
+      cachedDataOpt <- cacheClient.get(awairConfiguration.cacheKeyName)
       isTiming = now.getMinute % awairConfiguration.intervalMinutes == 0
       awairRoomInfo <- (isTiming, cachedDataOpt) match {
         case (true, _) | (false, None) =>
           for {
             roomInfo <- getFromApi
             _ <- cacheClient.save(
+              awairConfiguration.cacheKeyName,
               AwairDataModel(
                 roomInfo.score.value,
                 roomInfo.temperature.value,

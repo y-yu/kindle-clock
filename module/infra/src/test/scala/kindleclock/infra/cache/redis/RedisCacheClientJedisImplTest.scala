@@ -18,9 +18,10 @@ class RedisCacheClientJedisImplTest extends AnyFlatSpec with Diagrams with Befor
   )
 
   trait SetUpWithDockerRedis extends DockerRedisConfiguration {
+    val dummyKeyName = "key_name"
+
     val sut = new RedisCacheClientJedisImpl(
-      jedis,
-      awairConfiguration
+      jedis
     )
   }
 
@@ -41,6 +42,7 @@ class RedisCacheClientJedisImplTest extends AnyFlatSpec with Diagrams with Befor
 
     val actual = Await.result(
       sut.save(
+        dummyKeyName,
         data,
         30.seconds
       ),
@@ -63,10 +65,11 @@ class RedisCacheClientJedisImplTest extends AnyFlatSpec with Diagrams with Befor
     val actual = Await.result(
       for {
         _ <- sut.save(
+          dummyKeyName,
           data,
           30.seconds
         )
-        actual <- sut.get
+        actual <- sut.get(dummyKeyName)
       } yield actual,
       5.seconds
     )

@@ -10,6 +10,7 @@ import java.util.Locale
 import javax.inject.Inject
 import kindleclock.domain.interfaces.usecase.GetKindleClockInfoUsecase.ShowKindleImageUsecaseResult
 import kindleclock.domain.lib.DefaultTimeZone
+import kindleclock.domain.model.{Color => KindleClockColor}
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory
 import org.apache.batik.util.XMLResourceDescriptor
 import play.api.mvc.Result
@@ -18,7 +19,6 @@ import scala.xml.Elem
 import org.apache.batik.transcoder.TranscoderInput
 import org.apache.batik.transcoder.TranscoderOutput
 import org.apache.batik.transcoder.image.ImageTranscoder
-import org.apache.batik.transcoder.image.PNGTranscoder
 import play.api.mvc.Results.InternalServerError
 import play.api.mvc.Results.Ok
 import scala.util.control.NonFatal
@@ -33,7 +33,8 @@ class KindleClockPresenter @Inject() (
 
     val svg = template(
       arg,
-      now
+      now,
+      arg.backgroundColor == KindleClockColor.White
     )
 
     val doc =
@@ -46,8 +47,14 @@ class KindleClockPresenter @Inject() (
     val transcoderInput = new TranscoderInput(doc)
 
     val pngStream = new ByteArrayOutputStream
-    val t = new PNGTranscoder()
-    t.addTranscodingHint(ImageTranscoder.KEY_BACKGROUND_COLOR, Color.WHITE);
+    val t = new GrayscalePNGTranscoder()
+    t.addTranscodingHint(
+      ImageTranscoder.KEY_BACKGROUND_COLOR,
+      arg.backgroundColor match {
+        case KindleClockColor.White => Color.WHITE
+        case KindleClockColor.Black => Color.BLACK
+      }
+    )
 
     Future.successful(
       try {
@@ -69,19 +76,34 @@ class KindleClockPresenter @Inject() (
 
   private def template(
     result: ShowKindleImageUsecaseResult,
-    now: OffsetDateTime
+    now: OffsetDateTime,
+    isFontColorBlack: Boolean
   ): Elem = {
     val dateFormatter = DateTimeFormatter
       .ofPattern("EEE, MMM d", Locale.ENGLISH)
     val clockFormatter = DateTimeFormatter
       .ofPattern("HH:mm", Locale.ENGLISH)
 
+    val style = {
+      if (isFontColorBlack)
+        <style>
+          text {{ fill: black; }}
+          .imageColor {{ fill: black; }}
+        </style>
+      else
+        <style>
+          text {{ fill: white; }}
+          .imageColor {{ fill: white; }}
+        </style>
+    }
+
     <svg width="758" height="1024" xmlns="http://www.w3.org/2000/svg">
+      {style}
       <g>
-        <g transform="scale(3) translate(15.055 65.166)">
+        <g transform="scale(3) translate(15.055 65.166)" class="imageColor">
           {result.openWeatherMapInfo.weatherIcon.svg}
         </g>
-        <title>Weather</title>
+        <title>Kindle Clock</title>
 
         <g font-family="DejaVu Sans">
           <text font-size="110px" y="152" x="380" text-anchor="middle">

@@ -1,6 +1,7 @@
 package kindleclock.domain.interfaces.usecase
 
 import kindleclock.domain.interfaces.usecase.GetKindleClockInfoUsecase.ShowKindleImageUsecaseResult
+import kindleclock.domain.model.Color
 import kindleclock.domain.model.awair.AwairRoomInfo
 import kindleclock.domain.model.natureremo.NatureRemoRoomInfo
 import kindleclock.domain.model.openweathermap.OpenWeatherMapInfo
@@ -14,6 +15,7 @@ object GetKindleClockInfoUsecase {
   case class ShowKindleImageUsecaseResult(
     awairRoomInfo: AwairRoomInfo,
     natureRemoRoomInfo: NatureRemoRoomInfo,
-    openWeatherMapInfo: OpenWeatherMapInfo
+    openWeatherMapInfo: OpenWeatherMapInfo,
+    backgroundColor: Color
   )
 }

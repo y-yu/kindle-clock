@@ -3,7 +3,6 @@ package kindleclock.infra.cache.redis
 import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 import kindleclock.domain.interfaces.infra.cache.CacheClient
-import kindleclock.domain.model.config.api.AwairConfiguration
 import kindleclock.infra.datamodel.awair.AwairDataModel
 import redis.clients.jedis.BinaryJedis
 import scala.concurrent.ExecutionContext
@@ -11,26 +10,31 @@ import scala.concurrent.Future
 import scala.concurrent.duration.Duration
 
 class RedisCacheClientJedisImpl @Inject() (
-  binaryJedis: BinaryJedis,
-  awairConfiguration: AwairConfiguration
+  binaryJedis: BinaryJedis
 )(implicit
   ec: ExecutionContext
 ) extends CacheClient[AwairDataModel] {
   private val charset = StandardCharsets.UTF_8
 
-  override def get: Future[Option[AwairDataModel]] =
+  override def get(
+    keyName: String
+  ): Future[Option[AwairDataModel]] =
     Future(
       Option(
         binaryJedis
-          .get(awairConfiguration.cacheKeyName.getBytes(charset))
+          .get(keyName.getBytes(charset))
       ).map(AwairDataModel.parseFrom)
     )
 
-  override def save(a: AwairDataModel, expiration: Duration): Future[Boolean] =
+  override def save(
+    keyName: String,
+    a: AwairDataModel,
+    expiration: Duration
+  ): Future[Boolean] =
     Future(
       binaryJedis.setex(
-        awairConfiguration.cacheKeyName.getBytes(charset),
-        awairConfiguration.cacheExpire.toSeconds.toInt,
+        keyName.getBytes(charset),
+        expiration.toSeconds.toInt,
         a.toByteArray
       ) == "OK"
     )
