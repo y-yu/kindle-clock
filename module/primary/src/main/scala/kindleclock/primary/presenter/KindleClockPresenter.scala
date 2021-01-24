@@ -151,7 +151,7 @@ class KindleClockPresenter @Inject() (
           </text>
           <text font-size="64px"  y="640" x="270" text-anchor="start">W</text>
 
-          <text font-size="35px"  y="723" x="50"  text-anchor="middle">CO<tspan baseline-shift="sub" font-size="30">2</tspan>:</text>
+          <text font-size="35px"  y="723" x="50"  text-anchor="middle">CO<tspan baseline-shift="sub" font-size="25">2</tspan>:</text>
           <text font-size="64px"  y="783" x="180" text-anchor="end">
             {result.awairRoomInfo.co2.value}
           </text>
