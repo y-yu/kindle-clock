@@ -1,20 +1,19 @@
-name: CI
+name: Deploy to Heroku
 on:
-  pull_request:
   push:
+    branches:
+      - master
 jobs:
-  build-test:
+  deploy:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         java: [ 11 ]
     steps:
       - uses: actions/checkout@v2
-      - name: Docker pull
-        run: docker-compose pull
       - uses: actions/setup-java@v1
         with:
           java-version: ${{ matrix.java }}
       - uses: coursier/cache-action@v5
-      - name: Test
-        run: ./sbt stage test
+      - name: Deploy to Heroku
+        run: $HEROKU_API_KEY ./sbt stage deployHeroku

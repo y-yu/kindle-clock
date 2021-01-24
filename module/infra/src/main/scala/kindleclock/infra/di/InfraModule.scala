@@ -7,20 +7,16 @@ import kindleclock.infra.api.natureremo.NatureRemoApiClientImpl
 import kindleclock.infra.api.openweathermap.OpenWeatherMapApiClientImpl
 import kindleclock.infra.cache.redis.BinaryJedisClientProvider
 import kindleclock.infra.cache.redis.RedisCacheClientJedisImpl
-import kindleclock.infra.cache.redis.RedisClientProvider
 import kindleclock.infra.datamodel.awair.AwairDataModel
 import kindleclock.domain.interfaces.infra.api.awair.AwairApiClient
 import kindleclock.domain.interfaces.infra.api.natureremo.NatureRemoApiClient
 import kindleclock.domain.interfaces.infra.api.openweathermap.OpenWeatherMapApiClient
 import kindleclock.domain.interfaces.infra.cache.CacheClient
-import redis.RedisClient
 import redis.clients.jedis.BinaryJedis
 
 class InfraModule extends AbstractModule {
   override def configure(): Unit = {
-    bind(classOf[RedisClient]).toProvider(classOf[RedisClientProvider])
     bind(classOf[BinaryJedis]).toProvider(classOf[BinaryJedisClientProvider])
-    //bind(new TypeLiteral[CacheClient[AwairDataModel]]() {}).to(classOf[RedisCacheClientImpl])
     bind(new TypeLiteral[CacheClient[AwairDataModel]]() {}).to(classOf[RedisCacheClientJedisImpl])
     bind(classOf[AwairApiClient]).to(classOf[AwairApiClientImpl])
     bind(classOf[NatureRemoApiClient]).to(classOf[NatureRemoApiClientImpl])

@@ -10,19 +10,15 @@ object Dependencies {
     "org.mockito" % "mockito-core" % "3.7.7" % "test"
   )
 
-  lazy val useCase = Seq(
-    "org.apache.xmlgraphics" % "batik-transcoder" % "1.13",
-    "org.apache.xmlgraphics" % "batik-codec" % "1.13"
-  )
+  lazy val useCase = Nil
 
   lazy val infra = Seq(
-    "com.github.etaty" %% "rediscala" % "1.9.0",
     "redis.clients" % "jedis" % "3.5.0",
     "com.squareup.okhttp3" % "okhttp" % "4.8.0"
   )
 
   lazy val primary = Seq(
-    "org.apache.xmlgraphics" % "batik-transcoder" % "1.13", // pomOnly (),
-    "org.apache.xmlgraphics" % "batik-codec" % "1.13" // pomOnly ()
+    "org.apache.xmlgraphics" % "batik-transcoder" % "1.13",
+    "org.apache.xmlgraphics" % "batik-codec" % "1.13"
   )
 }

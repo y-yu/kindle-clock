@@ -14,9 +14,7 @@ class RedisCacheClientJedisImplTest extends AnyFlatSpec with Diagrams with Befor
   implicit val actorSystem: ActorSystem = ActorSystem()
 
   val jedis = new Jedis(
-    "localhost",
-    6379,
-    false
+    "redis://localhost:6379"
   )
 
   trait SetUpWithDockerRedis extends DockerRedisConfiguration {
