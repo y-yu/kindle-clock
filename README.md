@@ -16,7 +16,7 @@ CFW Kindle wallpaper generating server implementation.
 
 1. Create Heroku app whose name is `kindle-clock` by the command:
     ```console
-    $ heroku create -n kindle-server
+    $ heroku create -n kindle-clock
     ```
     - This name is set as `herokuAppNameRemote` in `build.sbt` so you can change it if you edit `build.sbt`
 2. Add [Heroku Redis](https://elements.heroku.com/addons/heroku-redis) to (1) Heroku app
