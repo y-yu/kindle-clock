@@ -31,7 +31,7 @@ val herokuSettings =
   Seq(
     Compile / herokuAppName := herokuAppNameRemote,
     Compile / herokuJdkVersion := "11",
-    herokuSkipSubProjects in Compile := false
+    Compile / herokuSkipSubProjects := false
   )
 
 val defaultDependencyConfiguration = "test->test;compile->compile"

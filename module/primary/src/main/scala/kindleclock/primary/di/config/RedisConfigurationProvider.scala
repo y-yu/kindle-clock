@@ -10,7 +10,7 @@ class RedisConfigurationProvider @Inject() (
 ) extends Provider[RedisConfiguration] {
   private lazy val config =
     RedisConfiguration(
-      configuration.get[String]("redis.host")
+      configuration.get[String]("redis.url")
     )
 
   override def get(): RedisConfiguration = config
