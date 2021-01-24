@@ -16,4 +16,4 @@ jobs:
           java-version: ${{ matrix.java }}
       - uses: coursier/cache-action@v5
       - name: Deploy to Heroku
-        run: $HEROKU_API_KEY ./sbt stage deployHeroku
+        run: HEROKU_API_KEY=${{ secrets.HEROKU_API_KEY }} ./sbt stage deployHeroku
