@@ -9,9 +9,7 @@ class BinaryJedisClientProvider @Inject() (
   redisConfiguration: RedisConfiguration
 ) extends Provider[BinaryJedis] {
   lazy val binaryJedis: BinaryJedis = new BinaryJedis(
-    redisConfiguration.host,
-    redisConfiguration.port,
-    redisConfiguration.useSSL
+    redisConfiguration.host
   )
 
   override def get(): BinaryJedis =

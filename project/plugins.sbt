@@ -6,6 +6,6 @@ addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.2")
 
 addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.9.24")
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.7.6")
+addSbtPlugin("com.heroku" % "sbt-heroku" % "2.1.4")
 
 libraryDependencies += "com.thesamet.scalapb" %% "compilerplugin" % "0.10.6"
