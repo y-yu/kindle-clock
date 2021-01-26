@@ -14,18 +14,38 @@ import kindleclock.domain.model.{Color => KindleClockColor}
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory
 import org.apache.batik.util.XMLResourceDescriptor
 import play.api.mvc.Result
+import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.xml.Elem
 import org.apache.batik.transcoder.TranscoderInput
 import org.apache.batik.transcoder.TranscoderOutput
 import org.apache.batik.transcoder.image.ImageTranscoder
-import play.api.mvc.Results.InternalServerError
+import org.apache.batik.transcoder.image.PNGTranscoder
 import play.api.mvc.Results.Ok
-import scala.util.control.NonFatal
 
 class KindleClockPresenter @Inject() (
   clock: Clock
+)(implicit
+  ec: ExecutionContext
 ) {
+  private lazy val whiteTranscoder: PNGTranscoder = {
+    val t = new GrayscalePNGTranscoder()
+    t.addTranscodingHint(
+      ImageTranscoder.KEY_BACKGROUND_COLOR,
+      Color.WHITE
+    )
+    t
+  }
+
+  private lazy val blackTranscoder: PNGTranscoder = {
+    val t = new GrayscalePNGTranscoder()
+    t.addTranscodingHint(
+      ImageTranscoder.KEY_BACKGROUND_COLOR,
+      Color.BLACK
+    )
+    t
+  }
+
   def result(
     arg: ShowKindleImageUsecaseResult
   ): Future[Result] = {
@@ -47,31 +67,21 @@ class KindleClockPresenter @Inject() (
     val transcoderInput = new TranscoderInput(doc)
 
     val pngStream = new ByteArrayOutputStream
-    val t = new GrayscalePNGTranscoder()
-    t.addTranscodingHint(
-      ImageTranscoder.KEY_BACKGROUND_COLOR,
-      arg.backgroundColor match {
-        case KindleClockColor.White => Color.WHITE
-        case KindleClockColor.Black => Color.BLACK
-      }
-    )
+    val f = Future {
+      val output = new TranscoderOutput(pngStream)
+      (arg.backgroundColor match {
+        case KindleClockColor.Black =>
+          blackTranscoder
+        case KindleClockColor.White =>
+          whiteTranscoder
+      }).transcode(transcoderInput, output)
 
-    Future.successful(
-      try {
-        val output = new TranscoderOutput(pngStream)
-        t.transcode(transcoderInput, output)
+      Ok(pngStream.toByteArray)
+        .as("image/" + "png")
+    }
+    f.onComplete(_ => pngStream.close())
 
-        Ok(pngStream.toByteArray)
-          .as("image/" + "png")
-      } catch {
-        case NonFatal(e) =>
-          InternalServerError(
-            e.getMessage
-          )
-      } finally {
-        pngStream.close()
-      }
-    )
+    f
   }
 
   private def template(
