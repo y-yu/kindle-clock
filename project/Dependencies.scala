@@ -2,7 +2,7 @@ import sbt._
 
 object Dependencies {
   lazy val domain = Seq(
-    "com.typesafe.play" %% "play-json" % "2.9.0",
+    "com.typesafe.play" %% "play-json" % "2.9.2",
     "com.google.inject" % "guice" % "4.2.3",
     "org.scala-lang.modules" %% "scala-xml" % "1.3.0",
     "org.scalatest" %% "scalatest" % "3.1.4" % "test",
