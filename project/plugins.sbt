@@ -8,4 +8,4 @@ addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.9.24")
 
 addSbtPlugin("com.heroku" % "sbt-heroku" % "2.1.4")
 
-libraryDependencies += "com.thesamet.scalapb" %% "compilerplugin" % "0.10.6"
+libraryDependencies += "com.thesamet.scalapb" %% "compilerplugin" % "0.10.11"
