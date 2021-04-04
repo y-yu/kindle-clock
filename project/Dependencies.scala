@@ -7,7 +7,7 @@ object Dependencies {
     "org.scala-lang.modules" %% "scala-xml" % "1.3.0",
     "org.scalatest" %% "scalatest" % "3.1.4" % "test",
     "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % "test",
-    "org.mockito" % "mockito-core" % "3.7.7" % "test"
+    "org.mockito" % "mockito-core" % "3.8.0" % "test"
   )
 
   lazy val useCase = Nil
