@@ -5,7 +5,7 @@ object Dependencies {
     "com.typesafe.play" %% "play-json" % "2.9.0",
     "com.google.inject" % "guice" % "4.2.3",
     "org.scala-lang.modules" %% "scala-xml" % "1.3.0",
-    "org.scalatest" %% "scalatest" % "3.1.4" % "test",
+    "org.scalatest" %% "scalatest" % "3.2.7" % "test",
     "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % "test",
     "org.mockito" % "mockito-core" % "3.7.7" % "test"
   )
