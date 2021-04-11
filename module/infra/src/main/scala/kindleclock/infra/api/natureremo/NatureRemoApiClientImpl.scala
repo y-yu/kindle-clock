@@ -63,15 +63,15 @@ class NatureRemoApiClientImpl @Inject() (
         )
       )
       result <- (for {
-          temperatureAndHumidity <- Json.fromJson[(Temperature, Humidity)](
-            Json.parse(temperatureAndHumidityString)
-          )
-          electricEnergy <- Json.fromJson[ElectricEnergy](Json.parse(electricEnergyString))
-        } yield NatureRemoRoomInfo(
-          temperatureAndHumidity._1,
-          temperatureAndHumidity._2,
-          electricEnergy
-        ))
+        temperatureAndHumidity <- Json.fromJson[(Temperature, Humidity)](
+          Json.parse(temperatureAndHumidityString)
+        )
+        electricEnergy <- Json.fromJson[ElectricEnergy](Json.parse(electricEnergyString))
+      } yield NatureRemoRoomInfo(
+        temperatureAndHumidity._1,
+        temperatureAndHumidity._2,
+        electricEnergy
+      ))
         .fold(
           error => Future.failed(new IllegalArgumentException(error.mkString(","))),
           Future.successful
@@ -84,10 +84,9 @@ class NatureRemoApiClientImpl @Inject() (
 object NatureRemoApiClientImpl {
   implicit val temperatureAndHumidityReads: Reads[(Temperature, Humidity)] =
     ((__(0) \ "newest_events" \ "te" \ "val").read[Double] and
-    (__(0) \ "newest_events" \ "hu" \ "val").read[Double])((t, h) => (Temperature(t), Humidity(h)))
+      (__(0) \ "newest_events" \ "hu" \ "val").read[Double])((t, h) => (Temperature(t), Humidity(h)))
 
-  /**
-    * @see [[https://developer.nature.global/jp/how-to-calculate-energy-data-from-smart-meter-values]]
+  /** @see [[https://developer.nature.global/jp/how-to-calculate-energy-data-from-smart-meter-values]]
     */
   val nowElectricEnergyNumber = 231
 
@@ -102,13 +101,12 @@ object NatureRemoApiClientImpl {
 
   implicit val electricEnergyReads: Reads[ElectricEnergy] =
     for {
-      smartMeterFilteredJson <- __.read[JsArray].map {
-        case JsArray(values) =>
-          JsArray(
-            values.filter { json =>
-              (json \ "smart_meter").isDefined
-            }
-          )
+      smartMeterFilteredJson <- __.read[JsArray].map { case JsArray(values) =>
+        JsArray(
+          values.filter { json =>
+            (json \ "smart_meter").isDefined
+          }
+        )
       }
       result <-
         (smartMeterFilteredJson(0) \ "smart_meter" \ "echonetlite_properties")

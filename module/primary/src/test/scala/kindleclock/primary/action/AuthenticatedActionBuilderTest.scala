@@ -21,22 +21,21 @@ class AuthenticatedActionBuilderTest extends PlaySpec with GuiceOneAppPerSuite w
     def test(
       matrix: Map[(AuthenticationConfiguration, String), Int]
     ): Unit = {
-      matrix.foreach {
-        case (config, queryString) -> expected =>
-          val sut = new AuthenticatedActionBuilder(
-            config,
-            mockControllerComponents
-          )
-          val fakeRequest = FakeRequest("GET", s"/$queryString")
+      matrix.foreach { case (config, queryString) -> expected =>
+        val sut = new AuthenticatedActionBuilder(
+          config,
+          mockControllerComponents
+        )
+        val fakeRequest = FakeRequest("GET", s"/$queryString")
 
-          val actual = call(
-            sut.action { _ =>
-              Ok("ok")
-            },
-            fakeRequest
-          )
+        val actual = call(
+          sut.action { _ =>
+            Ok("ok")
+          },
+          fakeRequest
+        )
 
-          assert(status(actual)(1.seconds) == expected)
+        assert(status(actual)(1.seconds) == expected)
       }
     }
   }

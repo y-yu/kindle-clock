@@ -9,15 +9,15 @@ val herokuAppNameRemote = projectName
 val defaultSettings = Seq(
   scalaVersion := scala213Version,
   scalacOptions ++= Seq(
-      "-deprecation",
-      "-encoding",
-      "UTF-8",
-      "-Xlint",
-      "-language:implicitConversions",
-      "-language:higherKinds",
-      "-language:existentials",
-      "-unchecked"
-    ),
+    "-deprecation",
+    "-encoding",
+    "UTF-8",
+    "-Xlint",
+    "-language:implicitConversions",
+    "-language:higherKinds",
+    "-language:existentials",
+    "-unchecked"
+  ),
   scalafmtOnCompile := true,
   addCompilerPlugin(scalafixSemanticdb)
 )
@@ -87,11 +87,11 @@ lazy val infra =
       // The Redis tests doesn't work if they run parallel.
       parallelExecution := false,
       Compile / PB.protoSources := Seq(
-          baseDirectory.value / "src" / "proto"
-        ),
+        baseDirectory.value / "src" / "proto"
+      ),
       Compile / PB.targets := Seq(
-          scalapb.gen(flatPackage = true) -> (Compile / sourceManaged).value
-        ),
+        scalapb.gen(flatPackage = true) -> (Compile / sourceManaged).value
+      ),
       libraryDependencies ++= Dependencies.infra,
       Test / test := (Test / test).dependsOn(runRedis).value,
       Test / testOnly := (Test / testOnly).dependsOn(runRedis).evaluated

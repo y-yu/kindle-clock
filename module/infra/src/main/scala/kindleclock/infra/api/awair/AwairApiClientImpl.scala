@@ -126,23 +126,23 @@ object AwairApiClientImpl {
       score <- ((__ \ "data")(0) \ "score").read[Int]
       sensors <- ((__ \ "data")(0) \ "sensors").read[List[SensorData]]
       result <- (for {
-          temp <- sensors.find(_.comp == "temp")
-          humid <- sensors.find(_.comp == "humid")
-          co2 <- sensors.find(_.comp == "co2")
-          voc <- sensors.find(_.comp == "voc")
-          pm25 <- sensors.find(_.comp == "pm25")
-        } yield {
-          Reads.pure(
-            AwairRoomInfo(
-              Score(score),
-              Temperature(temp.value.as[Double]),
-              Humidity(humid.value.as[Double]),
-              Co2(co2.value.as[Int]),
-              Voc(voc.value.as[Int]),
-              Pm25(pm25.value.as[Double])
-            )
+        temp <- sensors.find(_.comp == "temp")
+        humid <- sensors.find(_.comp == "humid")
+        co2 <- sensors.find(_.comp == "co2")
+        voc <- sensors.find(_.comp == "voc")
+        pm25 <- sensors.find(_.comp == "pm25")
+      } yield {
+        Reads.pure(
+          AwairRoomInfo(
+            Score(score),
+            Temperature(temp.value.as[Double]),
+            Humidity(humid.value.as[Double]),
+            Co2(co2.value.as[Int]),
+            Voc(voc.value.as[Int]),
+            Pm25(pm25.value.as[Double])
           )
-        }).getOrElse(
+        )
+      }).getOrElse(
         Reads.failed(s"${sensors.mkString(",")} doesn't have enough data.")
       )
     } yield result

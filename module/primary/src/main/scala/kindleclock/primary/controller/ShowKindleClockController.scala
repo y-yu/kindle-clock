@@ -21,9 +21,8 @@ class ShowKindleClockController @Inject() (
       (for {
         roomInfo <- getKindleClockInfoUsecase.execute
         result <- kindleClockPresenter.result(roomInfo)
-      } yield result).recover {
-        case e: Throwable =>
-          InternalServerError(e.getMessage)
+      } yield result).recover { case e: Throwable =>
+        InternalServerError(e.getMessage)
       }
     }
 }

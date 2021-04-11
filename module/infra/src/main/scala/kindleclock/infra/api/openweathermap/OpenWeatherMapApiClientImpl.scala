@@ -89,15 +89,14 @@ object OpenWeatherMapApiClientImpl {
 
   implicit val openWeatherMapInfoReads: Reads[OpenWeatherMapInfo] =
     (((__ \ "weather")(0) \ "icon").read[String] and
-    (__ \ "dt").read[Long]).tupled.flatMap {
-      case (icon, dt) =>
-        Reads[OpenWeatherMapInfo] { _ =>
-          convertToIcon(icon).map(weatherIcon =>
-            OpenWeatherMapInfo(
-              weatherIcon,
-              ZonedDateTime.ofInstant(Instant.ofEpochSecond(dt), DefaultTimeZone.jst)
-            )
+      (__ \ "dt").read[Long]).tupled.flatMap { case (icon, dt) =>
+      Reads[OpenWeatherMapInfo] { _ =>
+        convertToIcon(icon).map(weatherIcon =>
+          OpenWeatherMapInfo(
+            weatherIcon,
+            ZonedDateTime.ofInstant(Instant.ofEpochSecond(dt), DefaultTimeZone.jst)
           )
-        }
+        )
+      }
     }
 }
