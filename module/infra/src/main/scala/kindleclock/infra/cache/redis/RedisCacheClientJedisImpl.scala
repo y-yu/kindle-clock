@@ -34,7 +34,7 @@ class RedisCacheClientJedisImpl @Inject() (
     Future(
       binaryJedis.setex(
         keyName.getBytes(charset),
-        expiration.toSeconds.toInt,
+        expiration.toSeconds,
         a.toByteArray
       ) == "OK"
     )

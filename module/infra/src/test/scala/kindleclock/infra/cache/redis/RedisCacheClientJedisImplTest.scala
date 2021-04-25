@@ -1,5 +1,6 @@
 package kindleclock.infra.cache.redis
 
+import java.net.URI
 import akka.actor.ActorSystem
 import kindleclock.infra.datamodel.awair.AwairDataModel
 import org.scalatest.BeforeAndAfterAll
@@ -14,7 +15,7 @@ class RedisCacheClientJedisImplTest extends AnyFlatSpec with Diagrams with Befor
   implicit val actorSystem: ActorSystem = ActorSystem()
 
   val jedis = new Jedis(
-    "redis://localhost:6379"
+    new URI("redis://localhost:6379")
   )
 
   trait SetUpWithDockerRedis extends DockerRedisConfiguration {
