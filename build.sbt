@@ -24,7 +24,8 @@ val defaultSettings = Seq(
 
 val noPublishSettings = Seq(
   publish := {},
-  publishLocal := {}
+  publishLocal := {},
+  Compile / packageDoc / publishArtifact := false
 )
 
 val herokuSettings =
@@ -110,7 +111,7 @@ lazy val primary = project
     (Compile / unmanagedResourceDirectories) += baseDirectory.value / "conf",
     (Runtime / unmanagedClasspath) += baseDirectory.value / "conf",
     libraryDependencies ++= Dependencies.primary :+ guice,
-    javaAgents += "com.newrelic.agent.java" % "newrelic-java" % "6.5.0"
+    javaAgents += "com.newrelic.agent.java" % "newrelic-agent" % "6.5.0"
   )
   .dependsOn(
     domain % defaultDependencyConfiguration,
