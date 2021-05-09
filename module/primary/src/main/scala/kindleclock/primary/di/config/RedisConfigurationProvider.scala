@@ -1,5 +1,6 @@
 package kindleclock.primary.di.config
 
+import java.net.URI
 import javax.inject.Inject
 import javax.inject.Provider
 import kindleclock.domain.model.config.redis.RedisConfiguration
@@ -10,7 +11,7 @@ class RedisConfigurationProvider @Inject() (
 ) extends Provider[RedisConfiguration] {
   private lazy val config =
     RedisConfiguration(
-      configuration.get[String]("redis.url")
+      new URI(configuration.get[String]("redis.url"))
     )
 
   override def get(): RedisConfiguration = config
