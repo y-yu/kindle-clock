@@ -109,7 +109,8 @@ lazy val primary = project
   .settings(
     (Compile / unmanagedResourceDirectories) += baseDirectory.value / "conf",
     (Runtime / unmanagedClasspath) += baseDirectory.value / "conf",
-    libraryDependencies ++= Dependencies.primary :+ guice
+    libraryDependencies ++= Dependencies.primary :+ guice,
+    javaAgents += "com.newrelic.agent.java" % "newrelic-java" % "6.5.0"
   )
   .dependsOn(
     domain % defaultDependencyConfiguration,
@@ -117,4 +118,4 @@ lazy val primary = project
     usecase % defaultDependencyConfiguration
   )
   .disablePlugins(ProtocPlugin, PlayLayoutPlugin)
-  .enablePlugins(PlayScala)
+  .enablePlugins(PlayScala, JavaAgent, JavaAppPackaging)
