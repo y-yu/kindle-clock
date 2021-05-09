@@ -14,72 +14,57 @@ import kindleclock.domain.model.{Color => KindleClockColor}
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory
 import org.apache.batik.util.XMLResourceDescriptor
 import play.api.mvc.Result
-import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.xml.Elem
 import org.apache.batik.transcoder.TranscoderInput
 import org.apache.batik.transcoder.TranscoderOutput
 import org.apache.batik.transcoder.image.ImageTranscoder
-import org.apache.batik.transcoder.image.PNGTranscoder
 import play.api.mvc.Results.Ok
 
 class KindleClockPresenter @Inject() (
   clock: Clock
-)(implicit
-  ec: ExecutionContext
 ) {
-  private lazy val whiteTranscoder: PNGTranscoder = {
-    val t = new GrayscalePNGTranscoder()
-    t.addTranscodingHint(
-      ImageTranscoder.KEY_BACKGROUND_COLOR,
-      Color.WHITE
-    )
-    t
-  }
-
-  private lazy val blackTranscoder: PNGTranscoder = {
-    val t = new GrayscalePNGTranscoder()
-    t.addTranscodingHint(
-      ImageTranscoder.KEY_BACKGROUND_COLOR,
-      Color.BLACK
-    )
-    t
-  }
-
   def result(
     arg: ShowKindleImageUsecaseResult
   ): Future[Result] = {
     val now = OffsetDateTime.now(clock.withZone(DefaultTimeZone.jst))
 
-    val svg = template(
-      arg,
-      now,
-      arg.backgroundColor == KindleClockColor.White
+    val svgReader = new StringReader(
+      template(
+        arg,
+        now,
+        arg.backgroundColor == KindleClockColor.White
+      ).toString
     )
-
     val doc =
       new SAXSVGDocumentFactory(XMLResourceDescriptor.getXMLParserClassName)
         .createSVGDocument(
           null, // Is it actually OK?
-          new StringReader(svg.toString)
+          svgReader
         )
 
     val transcoderInput = new TranscoderInput(doc)
-
     val pngStream = new ByteArrayOutputStream
-    val f = Future {
-      val output = new TranscoderOutput(pngStream)
-      (arg.backgroundColor match {
-        case KindleClockColor.Black =>
-          blackTranscoder
-        case KindleClockColor.White =>
-          whiteTranscoder
-      }).transcode(transcoderInput, output)
+    val output = new TranscoderOutput(pngStream)
 
-      Ok(pngStream.toByteArray)
-        .as("image/" + "png")
-    }
-    f.onComplete(_ => pngStream.close())
+    val t = new GrayscalePNGTranscoder()
+    t.addTranscodingHint(
+      ImageTranscoder.KEY_BACKGROUND_COLOR,
+      arg.backgroundColor match {
+        case KindleClockColor.Black =>
+          Color.BLACK
+        case KindleClockColor.White =>
+          Color.WHITE
+      }
+    )
+    t.transcode(transcoderInput, output)
+
+    val f = Future.successful(
+      Ok(pngStream.toByteArray).as("image/png")
+    )
+
+    pngStream.close()
+    svgReader.close()
 
     f
   }
