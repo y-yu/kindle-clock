@@ -10,4 +10,4 @@ addSbtPlugin("com.heroku" % "sbt-heroku" % "2.1.4")
 
 addSbtPlugin("com.lightbend.sbt" % "sbt-javaagent" % "0.1.6")
 
-libraryDependencies += "com.thesamet.scalapb" %% "compilerplugin" % "0.11.3"
+libraryDependencies += "com.thesamet.scalapb" %% "compilerplugin" % "0.11.4"
