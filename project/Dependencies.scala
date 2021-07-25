@@ -4,7 +4,7 @@ object Dependencies {
   lazy val domain = Seq(
     "com.typesafe.play" %% "play-json" % "2.9.2",
     "com.google.inject" % "guice" % "5.0.1",
-    "org.scala-lang.modules" %% "scala-xml" % "1.3.0",
+    "org.scala-lang.modules" %% "scala-xml" % "2.0.1",
     "org.scalatest" %% "scalatest" % "3.2.9" % "test",
     "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % "test",
     "org.mockito" % "mockito-core" % "3.11.1" % "test"
