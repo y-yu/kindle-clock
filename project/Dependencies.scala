@@ -7,13 +7,13 @@ object Dependencies {
     "org.scala-lang.modules" %% "scala-xml" % "2.0.1",
     "org.scalatest" %% "scalatest" % "3.2.9" % "test",
     "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % "test",
-    "org.mockito" % "mockito-core" % "3.11.1" % "test"
+    "org.mockito" % "mockito-core" % "3.11.2" % "test"
   )
 
   lazy val useCase = Nil
 
   lazy val infra = Seq(
-    "redis.clients" % "jedis" % "3.6.0",
+    "redis.clients" % "jedis" % "3.6.3",
     "com.squareup.okhttp3" % "okhttp" % "4.9.1"
   )
 
