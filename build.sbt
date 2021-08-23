@@ -18,8 +18,7 @@ val defaultSettings = Seq(
     "-language:existentials",
     "-unchecked"
   ),
-  scalafmtOnCompile := true,
-  addCompilerPlugin(scalafixSemanticdb)
+  scalafmtOnCompile := true
 )
 
 val noPublishSettings = Seq(
