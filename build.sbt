@@ -1,4 +1,5 @@
 import sbt._
+
 import Keys._
 import org.scalafmt.sbt.ScalafmtPlugin.autoImport._
 
