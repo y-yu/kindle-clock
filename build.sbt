@@ -1,5 +1,6 @@
 import Dependencies._
 import sbt._
+
 import Keys._
 import org.scalafmt.sbt.ScalafmtPlugin.autoImport._
 import play.sbt.PlayImport._
