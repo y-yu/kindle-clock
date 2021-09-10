@@ -40,7 +40,7 @@ CFW Kindle wallpaper generating server implementation.
         ```console
         $ head -c 256 /dev/urandom | shasum -a 256
         ```
-    - `NEW_RELIC_LICENSE_KEY`
+    - `NEW_RELIC_APP_NAME`, `NEW_RELIC_LICENSE_KEY`
         - Heroku NewRelic settings 
    ```console
    $ heroku config:set \
@@ -50,6 +50,7 @@ CFW Kindle wallpaper generating server implementation.
      OPEN_WEATHER_MAP_APP_ID=<<YOUR_APP_ID>> \
      AUTH_TOKEN=<<YOUR_AUTH_TOKEN>> \
      APPLICATION_SECRET=<<YOUR_APPLICATION_SECRET>> \
+     NEW_RELIC_APP_NAME=<<YOUR_NEW_RELIC_APP_NAME>> \
      NEW_RELIC_LICENSE_KEY=<<YOUR_NEW_RELIC_LICENSE_KEY>>
    ```
 4. Run the following command:
@@ -73,6 +74,7 @@ OPEN_WEATHER_MAP_ID=<<YOUR_LOCATION_ID>> \
 OPEN_WEATHER_MAP_APP_ID=<<YOUR_APP_ID>> \
 AWAIR_CACHE_EXPIRE_SECONDS=30 \
 AWAIR_INTERVAL_MINUTES=5 \
+NEW_RELIC_APP_NAME=<<YOUR_NEW_RELIC_APP_NAME>> \
 NEW_RELIC_LICENSE_KEY=<<YOUR_NEW_RELIC_LICENSE_KEY>>
 
 $ ./sbt "primary / run"
