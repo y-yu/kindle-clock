@@ -177,4 +177,4 @@ lazy val primary = project
     dependencyOverrides += "org.scala-lang.modules" %% "scala-xml" % "2.0.1"
   )
   .disablePlugins(ProtocPlugin, PlayLayoutPlugin)
-  .enablePlugins(PlayService, JavaAgent, JavaAppPackaging)
+  .enablePlugins(PlayScala, JavaAgent, JavaAppPackaging)
