@@ -1,20 +1,39 @@
 import sbt._
+import Keys._
 
 object Dependencies {
-  lazy val domain = Seq(
-    "com.typesafe.play" %% "play-json" % "2.9.2",
-    "com.google.inject" % "guice" % "5.0.1",
-    "org.scala-lang.modules" %% "scala-xml" % "1.3.0",
-    "org.scalatest" %% "scalatest" % "3.2.9" % "test",
-    "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % "test",
-    "org.mockito" % "mockito-core" % "3.12.1" % "test"
+  val scala213 = "2.13.4"
+  val scala3 = "3.0.2"
+
+  val isScala3 = Def.setting(
+    CrossVersion.partialVersion(scalaVersion.value).exists(_._1 == 3)
   )
+
+  lazy val domain = Def.setting {
+    Seq(
+      "com.google.inject" % "guice" % "5.0.1",
+      "org.scala-lang.modules" %% "scala-xml" % "2.0.1",
+      "org.scalatest" %% "scalatest" % "3.2.9" % "test",
+      "org.mockito" % "mockito-core" % "3.12.4" % "test"
+    ) ++ (if (scalaBinaryVersion.value == "3") {
+            Seq(
+              "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test cross CrossVersion.for3Use2_13 exclude ("org.scalatest", "scalatest_2.13"),
+              "com.typesafe.play" %% "play-json" % "2.10.0-RC5"
+            )
+          } else {
+            Seq(
+              "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test,
+              "com.typesafe.play" %% "play-json" % "2.9.2"
+            )
+          })
+  }
 
   lazy val useCase = Nil
 
   lazy val infra = Seq(
     "redis.clients" % "jedis" % "3.6.3",
-    "com.squareup.okhttp3" % "okhttp" % "4.9.1"
+    "com.squareup.okhttp3" % "okhttp" % "4.9.1",
+    "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.12.5" cross CrossVersion.for3Use2_13
   )
 
   lazy val primary = Seq(
