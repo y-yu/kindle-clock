@@ -13,7 +13,6 @@ val defaultSettings = Seq(
   scalacOptions ++= {
     if (isScala3.value) {
       Seq(
-        "--no-warnings",
         "-Ykind-projector",
         "-source",
         "3.0-migration"
@@ -26,11 +25,7 @@ val defaultSettings = Seq(
     }
   },
   scalacOptions ++= Seq(
-    "-unchecked",
-    "-encoding",
-    "UTF-8",
     "-feature",
-    "-deprecation",
     "-language:existentials",
     "-language:implicitConversions",
     "-language:higherKinds"
@@ -41,7 +36,13 @@ val defaultSettings = Seq(
 val noPublishSettings = Seq(
   publish := {},
   publishLocal := {},
-  Compile / packageDoc / publishArtifact := false
+  Compile / packageDoc / publishArtifact := false,
+  scalacOptions ++= Seq(
+    "-unchecked",
+    "-encoding",
+    "UTF-8",
+    "-deprecation"
+  )
 )
 
 val herokuSettings =
@@ -92,7 +93,7 @@ lazy val remove213LibraryWhenScala3 =
 lazy val domain =
   project
     .in(file("module/domain"))
-    .settings(defaultSettings: _*)
+    .settings(defaultSettings ++ noPublishSettings: _*)
     .settings(
       libraryDependencies ++= Dependencies.domain.value,
       remove213LibraryWhenScala3
@@ -116,7 +117,7 @@ lazy val infra =
   project
     .in(file("module/infra"))
     .settings(
-      defaultSettings ++ DockerUtils.runRedisSetting: _*
+      defaultSettings ++ noPublishSettings ++ DockerUtils.runRedisSetting: _*
     )
     .settings(
       // The Redis tests doesn't work if they run parallel.
