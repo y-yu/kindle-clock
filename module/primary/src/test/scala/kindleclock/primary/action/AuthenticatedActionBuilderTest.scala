@@ -3,7 +3,7 @@ package kindleclock.primary.action
 import akka.stream.Materializer
 import kindleclock.domain.model.config.auth.AuthenticationConfiguration
 import org.scalatest.diagrams.Diagrams
-import org.scalatestplus.play.PlaySpec
+import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.http.Writeable._
 import play.api.mvc.Results.Ok
@@ -12,7 +12,7 @@ import play.api.test.Helpers._
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class AuthenticatedActionBuilderTest extends PlaySpec with GuiceOneAppPerSuite with Diagrams {
+class AuthenticatedActionBuilderTest extends AnyWordSpec with GuiceOneAppPerSuite with Diagrams {
   implicit lazy val materializer: Materializer = app.materializer
 
   trait SetUp {
