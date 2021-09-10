@@ -7,8 +7,8 @@ sealed abstract class WeatherIcon(
 ) extends Product
   with Serializable
 
-/** @see [[https://github.com/mpetroff/kindle-weather-display]]
-  *      [[https://mpetroff.net/2012/09/kindle-weather-display/]]
+/** @see
+  *   [[https://github.com/mpetroff/kindle-weather-display]] [[https://mpetroff.net/2012/09/kindle-weather-display/]]
   */
 object WeatherIcon {
   case object Sunny

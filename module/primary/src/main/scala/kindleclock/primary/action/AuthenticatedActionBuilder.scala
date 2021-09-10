@@ -49,7 +49,8 @@ class AuthenticatedActionBuilder @Inject() (
   private val unauthorized = Left(Unauthorized("The input token was not authenticated!"))
 
   /** Against timing attack, this is copy and paste from:
-    * @see [[https://github.com/playframework/playframework/blob/1eddf37167c38d8713a15c230e6240eb11e74aef/core/play/src/main/scala/play/api/mvc/Cookie.scala#L582-L592]]
+    * @see
+    *   [[https://github.com/playframework/playframework/blob/1eddf37167c38d8713a15c230e6240eb11e74aef/core/play/src/main/scala/play/api/mvc/Cookie.scala#L582-L592]]
     */
   def safeEquals(a: String, b: String) = {
     if (a.length != b.length) {

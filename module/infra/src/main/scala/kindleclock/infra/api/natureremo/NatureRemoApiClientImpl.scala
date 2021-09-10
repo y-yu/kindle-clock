@@ -86,7 +86,8 @@ object NatureRemoApiClientImpl {
     ((__(0) \ "newest_events" \ "te" \ "val").read[Double] and
       (__(0) \ "newest_events" \ "hu" \ "val").read[Double])((t, h) => (Temperature(t), Humidity(h)))
 
-  /** @see [[https://developer.nature.global/jp/how-to-calculate-energy-data-from-smart-meter-values]]
+  /** @see
+    *   [[https://developer.nature.global/jp/how-to-calculate-energy-data-from-smart-meter-values]]
     */
   val nowElectricEnergyNumber = 231
 
