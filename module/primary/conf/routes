@@ -1,3 +1,5 @@
 
 
 GET       /       kindleclock.primary.controller.ShowKindleClockController.show
+
+GET       /build_info       kindleclock.primary.controller.ShowBuildInfoController.show

@@ -98,6 +98,7 @@ lazy val domain =
     .settings(defaultSettings ++ noPublishSettings: _*)
     .settings(
       libraryDependencies ++= Dependencies.domain.value,
+      (Compile / sourceGenerators) += BuildInfo.createBuildInfoFileTask.taskValue,
       remove213LibraryWhenScala3
     )
     .disablePlugins(PlayScala, PlayLayoutPlugin, ProtocPlugin, HerokuPlugin)
