@@ -1,6 +1,8 @@
 package kindleclock.primary.controller
 
 import play.api.mvc.AbstractController
+import play.api.mvc.Action
+import play.api.mvc.AnyContent
 import play.api.mvc.ControllerComponents
 import javax.inject.Inject
 import kindleclock.domain.interfaces.usecase.GetKindleClockInfoUsecase
@@ -16,7 +18,7 @@ class ShowKindleClockController @Inject() (
 )(implicit
   ec: ExecutionContext
 ) extends AbstractController(cc) {
-  def show =
+  def show: Action[AnyContent] =
     authenticatedActionBuilder.action.async { _ =>
       (for {
         roomInfo <- getKindleClockInfoUsecase.execute
