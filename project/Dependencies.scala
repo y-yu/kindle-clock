@@ -33,7 +33,7 @@ object Dependencies {
 
   lazy val infra = Seq(
     "redis.clients" % "jedis" % "3.6.3",
-    "com.squareup.okhttp3" % "okhttp" % "4.9.1",
+    "com.squareup.okhttp3" % "okhttp" % "4.9.2",
     "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.12.5" cross CrossVersion.for3Use2_13
   )
 
