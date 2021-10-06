@@ -3,7 +3,7 @@ import sbt._
 import Keys._
 
 object Dependencies {
-  val scala213 = "2.13.4"
+  val scala213 = "2.13.6"
   val scala3 = "3.0.2"
 
   val isScala3 = Def.setting(
@@ -14,7 +14,7 @@ object Dependencies {
     Seq(
       "com.google.inject" % "guice" % "5.0.1",
       "org.scala-lang.modules" %% "scala-xml" % "2.0.1",
-      "org.scalatest" %% "scalatest" % "3.2.9" % "test",
+      "org.scalatest" %% "scalatest" % "3.2.10" % "test",
       "org.mockito" % "mockito-core" % "3.12.4" % "test"
     ) ++ (if (scalaBinaryVersion.value == "3") {
             Seq(
@@ -34,7 +34,7 @@ object Dependencies {
   lazy val infra = Seq(
     "redis.clients" % "jedis" % "3.6.3",
     "com.squareup.okhttp3" % "okhttp" % "4.9.2",
-    "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.12.5" cross CrossVersion.for3Use2_13
+    "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.13.0" cross CrossVersion.for3Use2_13
   )
 
   lazy val primary = Seq(
