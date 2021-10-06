@@ -14,7 +14,7 @@ object Dependencies {
     Seq(
       "com.google.inject" % "guice" % "5.0.1",
       "org.scala-lang.modules" %% "scala-xml" % "2.0.1",
-      "org.scalatest" %% "scalatest" % "3.2.9" % "test",
+      "org.scalatest" %% "scalatest" % "3.2.10" % "test",
       "org.mockito" % "mockito-core" % "3.12.4" % "test"
     ) ++ (if (scalaBinaryVersion.value == "3") {
             Seq(
