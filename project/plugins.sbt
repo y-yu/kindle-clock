@@ -10,4 +10,4 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.2")
 
 addSbtPlugin("com.lightbend.sbt" % "sbt-javaagent" % "0.1.6")
 
-libraryDependencies += "com.thesamet.scalapb" %% "compilerplugin" % "0.11.5"
+libraryDependencies += "com.thesamet.scalapb" %% "compilerplugin" % "0.11.6"
