@@ -73,7 +73,15 @@ class NatureRemoApiClientImpl @Inject() (
         electricEnergy
       ))
         .fold(
-          error => Future.failed(new IllegalArgumentException(error.mkString(","))),
+          error => Future.failed(
+            new IllegalArgumentException(
+              s"""JSON parse error!
+                 |  error: ${error.mkString(",")}
+                 |  temperatureAndHumidityJSON: $temperatureAndHumidityString
+                 |  electricEnergyJSON: $electricEnergyString
+                 |""".stripMargin
+            )
+          ),
           Future.successful
         )
     } yield result
