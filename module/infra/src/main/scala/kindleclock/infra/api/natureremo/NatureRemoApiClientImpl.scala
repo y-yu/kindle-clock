@@ -73,15 +73,16 @@ class NatureRemoApiClientImpl @Inject() (
         electricEnergy
       ))
         .fold(
-          error => Future.failed(
-            new IllegalArgumentException(
-              s"""JSON parse error!
+          error =>
+            Future.failed(
+              new IllegalArgumentException(
+                s"""JSON parse error!
                  |  error: ${error.mkString(",")}
                  |  temperatureAndHumidityJSON: $temperatureAndHumidityString
                  |  electricEnergyJSON: $electricEnergyString
                  |""".stripMargin
-            )
-          ),
+              )
+            ),
           Future.successful
         )
     } yield result
@@ -91,8 +92,22 @@ class NatureRemoApiClientImpl @Inject() (
 
 object NatureRemoApiClientImpl {
   implicit val temperatureAndHumidityReads: Reads[(Temperature, Humidity)] =
-    ((__(0) \ "newest_events" \ "te" \ "val").read[Double] and
-      (__(0) \ "newest_events" \ "hu" \ "val").read[Double])((t, h) => (Temperature(t), Humidity(h)))
+    __.read[JsArray].flatMap { case JsArray(values) =>
+      values
+        .find { json =>
+          (json \ "newest_events" \ "te").isDefined &&
+          (json \ "newest_events" \ "hu").isDefined
+        }
+        .map { hasTeHuValue =>
+          val te = Temperature((hasTeHuValue \ "newest_events" \ "te" \ "val").as[Double])
+          val hu = Humidity((hasTeHuValue \ "newest_events" \ "hu" \ "val").as[Double])
+
+          Reads.pure((te, hu))
+        }
+        .getOrElse(
+          Reads.failed(s"`newest_events` which has `te` and `hu` is not found.")
+        )
+    }
 
   /** @see
     *   [[https://developer.nature.global/jp/how-to-calculate-energy-data-from-smart-meter-values]]
