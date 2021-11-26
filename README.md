@@ -6,6 +6,7 @@ Kindle Clock
 CFW Kindle wallpaper generating server implementation.
 
 ![Example image](https://y-yu.github.io/kindle-clock/example.png)
+[![Example image2](https://y-yu.github.io/kindle-clock/example2.png)](https://flic.kr/p/2mM5aQn)
 
 ## Hardware requirements
 
