@@ -149,7 +149,7 @@ lazy val primary = project
     (Compile / unmanagedResourceDirectories) += baseDirectory.value / "conf",
     (Runtime / unmanagedClasspath) += baseDirectory.value / "conf",
     libraryDependencies ++= Dependencies.primary :+ guice,
-    javaAgents += "com.newrelic.agent.java" % "newrelic-agent" % "7.4.0"
+    javaAgents += "com.newrelic.agent.java" % "newrelic-agent" % "7.4.1"
   )
   .dependsOn(
     domain % defaultDependencyConfiguration,
