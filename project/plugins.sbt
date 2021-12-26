@@ -2,7 +2,7 @@ addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.8.11")
 
 addSbtPlugin("com.thesamet" % "sbt-protoc" % "1.0.5")
 
-addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.5")
+addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.6")
 
 addSbtPlugin("com.heroku" % "sbt-heroku" % "2.1.4")
 
