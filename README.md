@@ -58,6 +58,7 @@ CFW Kindle wallpaper generating server implementation.
    ```console
    $ ./sbt stage deployHeroku
    ```
+5. Edit `client/launch.sh` for your sever information, copy it to your Kindle and set up `cron`
 
 ## How to run in local
 
