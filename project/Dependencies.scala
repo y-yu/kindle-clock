@@ -12,7 +12,7 @@ object Dependencies {
 
   lazy val domain = Def.setting {
     Seq(
-      "com.google.inject" % "guice" % "5.0.1",
+      "com.google.inject" % "guice" % "5.1.0",
       "org.scala-lang.modules" %% "scala-xml" % "2.0.1",
       "org.scalatest" %% "scalatest" % "3.2.10" % "test",
       "org.mockito" % "mockito-core" % "4.2.0" % "test"
