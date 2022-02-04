@@ -3,7 +3,7 @@ import sbt._
 import Keys._
 
 object Dependencies {
-  val scala213 = "2.13.7"
+  val scala213 = "2.13.8"
   val scala3 = "3.1.1"
 
   val isScala3 = Def.setting(
@@ -12,10 +12,10 @@ object Dependencies {
 
   lazy val domain = Def.setting {
     Seq(
-      "com.google.inject" % "guice" % "5.0.1",
+      "com.google.inject" % "guice" % "5.1.0",
       "org.scala-lang.modules" %% "scala-xml" % "2.0.1",
       "org.scalatest" %% "scalatest" % "3.2.11" % "test",
-      "org.mockito" % "mockito-core" % "4.2.0" % "test"
+      "org.mockito" % "mockito-core" % "4.3.1" % "test"
     ) ++ (if (scalaBinaryVersion.value == "3") {
             Seq(
               "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test cross CrossVersion.for3Use2_13 exclude ("org.scalatest", "scalatest_2.13"),
