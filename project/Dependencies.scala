@@ -3,7 +3,7 @@ import sbt._
 import Keys._
 
 object Dependencies {
-  val scala213 = "2.13.7"
+  val scala213 = "2.13.8"
   val scala3 = "3.1.1"
 
   val isScala3 = Def.setting(
