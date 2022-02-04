@@ -115,7 +115,6 @@ lazy val usecase =
     )
     .disablePlugins(PlayScala, PlayLayoutPlugin, ProtocPlugin, HerokuPlugin)
 
-val runRedis = taskKey[Unit]("Run Redis")
 lazy val infra =
   project
     .in(file("module/infra"))
@@ -132,8 +131,8 @@ lazy val infra =
         scalapb.gen(flatPackage = true) -> (Compile / sourceManaged).value
       ),
       libraryDependencies ++= Dependencies.infra,
-      Test / test := (Test / test).dependsOn(runRedis).value,
-      Test / testOnly := (Test / testOnly).dependsOn(runRedis).evaluated
+      Test / test := (Test / test).dependsOn(DockerUtils.runRedis).value,
+      Test / testOnly := (Test / testOnly).dependsOn(DockerUtils.runRedis).evaluated
     )
     .dependsOn(
       domain % defaultDependencyConfiguration
