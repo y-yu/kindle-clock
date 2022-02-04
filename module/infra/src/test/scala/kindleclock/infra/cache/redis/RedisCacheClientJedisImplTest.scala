@@ -1,7 +1,6 @@
 package kindleclock.infra.cache.redis
 
 import java.net.URI
-import akka.actor.ActorSystem
 import kindleclock.infra.datamodel.awair.AwairDataModel
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.diagrams.Diagrams
@@ -12,8 +11,6 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 
 class RedisCacheClientJedisImplTest extends AnyFlatSpec with Diagrams with BeforeAndAfterAll {
-  implicit val actorSystem: ActorSystem = ActorSystem()
-
   val jedis = new Jedis(
     new URI("redis://localhost:6379")
   )
