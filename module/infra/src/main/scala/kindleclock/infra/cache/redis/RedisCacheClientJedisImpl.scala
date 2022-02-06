@@ -4,7 +4,6 @@ import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 import kindleclock.domain.interfaces.infra.cache.CacheClient
 import kindleclock.infra.datamodel.awair.AwairDataModel
-import redis.clients.jedis.BinaryJedis
 import redis.clients.jedis.Jedis
 
 import scala.concurrent.ExecutionContext
