@@ -10,7 +10,8 @@ import java.util.Locale
 import javax.inject.Inject
 import kindleclock.domain.interfaces.usecase.GetKindleClockInfoUsecase.ShowKindleImageUsecaseResult
 import kindleclock.domain.lib.DefaultTimeZone
-import kindleclock.domain.model.{Color => KindleClockColor}
+import kindleclock.domain.model.Color as KindleClockColor
+import kindleclock.domain.model.awair.AwairRoomInfo
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory
 import org.apache.batik.util.XMLResourceDescriptor
 import play.api.mvc.Result
@@ -74,6 +75,14 @@ class KindleClockPresenter @Inject() (
     now: OffsetDateTime,
     isFontColorBlack: Boolean
   ): Elem = {
+    def getAwairRoomInfo(
+      f: AwairRoomInfo => String
+    ): String =
+      result.awairRoomInfo.fold(
+        _ => "N/A",
+        f
+      )
+
     val dateFormatter = DateTimeFormatter
       .ofPattern("EEE, MMM d", Locale.ENGLISH)
     val clockFormatter = DateTimeFormatter
@@ -107,13 +116,13 @@ class KindleClockPresenter @Inject() (
 
           <text font-size="35px"  y="230" x="560" text-anchor="middle">Score:</text>
           <text font-size="100px" y="320" x="560" text-anchor="middle">
-            {result.awairRoomInfo.score.value}
+            {getAwairRoomInfo(_.score.value.toString)}
           </text>
 
           <text font-size="35px"  y="400" x="540" text-anchor="middle">Temperature:</text>
 
           <text font-size="60px"  y="459" x="515" text-anchor="end">
-            {doubleSawedOffString(result.awairRoomInfo.temperature.value)}
+            {getAwairRoomInfo(info => doubleSawedOffString(info.temperature.value))}
           </text>
           <text font-size="15px"  y="479" x="515" text-anchor="end">AWAIR</text>
           <text font-size="100px" y="489" x="520" text-anchor="start">/</text>
@@ -126,7 +135,7 @@ class KindleClockPresenter @Inject() (
           <text font-size="35px"  y="555" x="540" text-anchor="middle">Humidity:</text>
 
           <text font-size="60px"  y="610" x="515" text-anchor="end">
-            {doubleSawedOffString(result.awairRoomInfo.humidity.value)}
+            {getAwairRoomInfo(info => doubleSawedOffString(info.humidity.value))}
           </text>
           <text font-size="15px"  y="630" x="515" text-anchor="end">AWAIR</text>
           <text font-size="100px" y="640" x="520" text-anchor="start">/</text>
@@ -148,19 +157,19 @@ class KindleClockPresenter @Inject() (
 
           <text font-size="35px"  y="723" x="50"  text-anchor="middle">CO<tspan baseline-shift="sub" font-size="25">2</tspan>:</text>
           <text font-size="64px"  y="783" x="180" text-anchor="end">
-            {result.awairRoomInfo.co2.value}
+            {getAwairRoomInfo(_.co2.value.toString)}
           </text>
           <text font-size="35px"  y="783" x="220" text-anchor="middle">ppm</text>
 
           <text font-size="35px"  y="723" x="300" text-anchor="middle">VOC:</text>
           <text font-size="64px"  y="783" x="440" text-anchor="end">
-            {result.awairRoomInfo.voc.value}
+            {getAwairRoomInfo(_.voc.value.toString)}
           </text>
           <text font-size="35px"  y="783" x="475" text-anchor="middle">ppb</text>
 
           <text font-size="35px"  y="723" x="575" text-anchor="middle">PM2.5:</text>
           <text font-size="64px"  y="783" x="630" text-anchor="end">
-            {doubleSawedOffString(result.awairRoomInfo.pm25.value)}
+            {getAwairRoomInfo(info => doubleSawedOffString(info.pm25.value))}
           </text>
           <text font-size="35px"  y="783" x="690" text-anchor="middle">μg/m<tspan baseline-shift="super">3</tspan></text>
 

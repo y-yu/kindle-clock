@@ -1,5 +1,6 @@
 package kindleclock.infra.api.awair
 
+import kindleclock.domain.eff.KindleClockEitherEffect._kindleClockEither
 import java.time.Clock
 import java.time.ZonedDateTime
 import javax.inject.Inject
@@ -15,11 +16,18 @@ import kindleclock.domain.model.awair.Pm25
 import kindleclock.domain.model.awair.Score
 import kindleclock.domain.model.awair.Voc
 import kindleclock.domain.model.config.api.AwairConfiguration
+import kindleclock.domain.model.error.KindleClockError
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import monix.eval.Task
+import org.atnos.eff.Eff
+import org.atnos.eff.addon.monix.task.*
+import org.atnos.eff.either.*
+import org.atnos.eff.addon.monix.task._task
+import org.slf4j.LoggerFactory
 import play.api.libs.json.Reads
 import scala.concurrent.Future
-import play.api.libs.json._
+import play.api.libs.json.*
 import scala.concurrent.ExecutionContext
 import scala.concurrent.blocking
 
@@ -32,7 +40,9 @@ class AwairApiClientImpl @Inject() (
   executionContext: ExecutionContext
 ) extends AwairApiClient {
 
-  import AwairApiClientImpl._
+  import AwairApiClientImpl.*
+
+  private val logger = LoggerFactory.getLogger(this.getClass)
 
   private val getAwairRoomInfo: Request =
     new Request.Builder()
@@ -52,7 +62,18 @@ class AwairApiClientImpl @Inject() (
       )
       .build()
 
-  def getRoomInfo: Future[AwairRoomInfo] = {
+  def getRoomInfo[R: _task: _kindleClockEither]: Eff[R, AwairRoomInfo] =
+    fromTask(Task.deferFutureAction { implicit ec =>
+      getRoomInfo()
+        .map(x => Right(x))
+        .recover { case e: AwairApiError =>
+          Left(e)
+        }
+    }).flatMap(
+      fromEither[R, KindleClockError, AwairRoomInfo]
+    )
+
+  private[awair] def getRoomInfo(): Future[AwairRoomInfo] = {
     val now = ZonedDateTime.now(clock.withZone(DefaultTimeZone.jst))
 
     for {
@@ -107,7 +128,11 @@ class AwairApiClientImpl @Inject() (
             Json.parse(awairRoomInfoString)
           )
           .fold(
-            error => Future.failed(new IllegalArgumentException(error.mkString(","))),
+            { error =>
+              val exception = AwairApiError(message = error.mkString(","))
+              logger.error("Awair API failed!", exception)
+              Future.failed(exception)
+            },
             Future.successful
           )
     } yield result
@@ -118,6 +143,11 @@ object AwairApiClientImpl {
     comp: String,
     value: JsNumber
   )
+
+  case class AwairApiError(
+    message: String = null,
+    cause: Throwable = null
+  ) extends KindleClockError(message, cause)
 
   implicit val sensorDataReads: Reads[SensorData] = Json.reads[SensorData]
 
