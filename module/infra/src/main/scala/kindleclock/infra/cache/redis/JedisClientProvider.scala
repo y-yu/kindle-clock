@@ -3,15 +3,15 @@ package kindleclock.infra.cache.redis
 import javax.inject.Inject
 import javax.inject.Provider
 import kindleclock.domain.model.config.redis.RedisConfiguration
-import redis.clients.jedis.BinaryJedis
+import redis.clients.jedis.Jedis
 
-class BinaryJedisClientProvider @Inject() (
+class JedisClientProvider @Inject() (
   redisConfiguration: RedisConfiguration
-) extends Provider[BinaryJedis] {
-  lazy val binaryJedis: BinaryJedis = new BinaryJedis(
+) extends Provider[Jedis] {
+  lazy val jedis: Jedis = new Jedis(
     redisConfiguration.host
   )
 
-  override def get(): BinaryJedis =
-    binaryJedis
+  override def get(): Jedis =
+    jedis
 }
