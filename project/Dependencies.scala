@@ -11,11 +11,12 @@ object Dependencies {
   )
 
   private val effVersion = "6.0.0"
+  lazy val scalaXmlDependency = "org.scala-lang.modules" %% "scala-xml" % "2.1.0"
 
   lazy val domain = Def.setting {
     Seq(
       "com.google.inject" % "guice" % "5.1.0",
-      "org.scala-lang.modules" %% "scala-xml" % "2.0.1",
+      scalaXmlDependency,
       "org.scalatest" %% "scalatest" % "3.2.11" % "test",
       "org.mockito" % "mockito-core" % "4.5.1" % "test",
       "org.atnos" %% "eff" % effVersion,
