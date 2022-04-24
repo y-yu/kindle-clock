@@ -17,7 +17,7 @@ object Dependencies {
       "com.google.inject" % "guice" % "5.1.0",
       "org.scala-lang.modules" %% "scala-xml" % "2.0.1",
       "org.scalatest" %% "scalatest" % "3.2.11" % "test",
-      "org.mockito" % "mockito-core" % "4.4.0" % "test",
+      "org.mockito" % "mockito-core" % "4.5.1" % "test",
       "org.atnos" %% "eff" % effVersion,
       "org.atnos" %% "eff-monix" % effVersion
     ) ++ (if (scalaBinaryVersion.value == "3") {
