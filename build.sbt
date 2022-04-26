@@ -175,7 +175,7 @@ lazy val primary = project
       },
     remove213LibraryWhenScala3,
     // Avoid version conflict scala-xml from twirl-api.
-    dependencyOverrides += "org.scala-lang.modules" %% "scala-xml" % "2.0.1"
+    dependencyOverrides += Dependencies.scalaXmlDependency
   )
   .disablePlugins(ProtocPlugin, PlayLayoutPlugin)
   .enablePlugins(PlayScala, JavaAgent, JavaAppPackaging)
