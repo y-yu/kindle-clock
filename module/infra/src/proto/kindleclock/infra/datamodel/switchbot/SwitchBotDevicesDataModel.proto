@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package kindleclock.infra.datamodel.switchbot;
+
+message SwitchBotDevicesDataModel {
+  repeated SwitchBotDevice devices = 1;
+}
+
+message SwitchBotDevice {
+  string deviceId = 1;
+  string deviceType = 2;
+}

@@ -2,10 +2,10 @@ package kindleclock.infra.api.natureremo
 
 import javax.inject.Inject
 import kindleclock.domain.interfaces.infra.api.natureremo.NatureRemoApiClient
+import kindleclock.domain.model.ElectricEnergy
 import kindleclock.domain.model.Humidity
 import kindleclock.domain.model.Temperature
 import kindleclock.domain.model.config.api.NatureRemoConfiguration
-import kindleclock.domain.model.natureremo.ElectricEnergy
 import kindleclock.domain.model.natureremo.NatureRemoRoomInfo
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -22,7 +22,7 @@ class NatureRemoApiClientImpl @Inject() (
   executionContext: ExecutionContext
 ) extends NatureRemoApiClient {
 
-  import NatureRemoApiClientImpl._
+  import NatureRemoApiClientImpl.*
 
   private def requestWithAuthorization(path: String): Request =
     new Request.Builder()

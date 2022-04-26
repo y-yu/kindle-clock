@@ -130,6 +130,12 @@ lazy val infra =
       Compile / PB.targets := Seq(
         scalapb.gen(flatPackage = true) -> (Compile / sourceManaged).value
       ),
+      Test / PB.protoSources := Seq(
+        baseDirectory.value / "src" / "test" / "proto"
+      ),
+      Test / PB.targets := Seq(
+        scalapb.gen(flatPackage = true) -> (Test / sourceManaged).value
+      ),
       libraryDependencies ++= Dependencies.infra,
       Test / test := (Test / test).dependsOn(DockerUtils.runRedis).value,
       Test / testOnly := (Test / testOnly).dependsOn(DockerUtils.runRedis).evaluated
