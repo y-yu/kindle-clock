@@ -10,7 +10,7 @@ object Dependencies {
     CrossVersion.partialVersion(scalaVersion.value).exists(_._1 == 3)
   )
 
-  private val effVersion = "5.23.0"
+  private val effVersion = "6.0.0"
 
   lazy val domain = Def.setting {
     Seq(
