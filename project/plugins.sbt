@@ -6,7 +6,7 @@ addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.6")
 
 addSbtPlugin("com.heroku" % "sbt-heroku" % "2.1.4")
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.2")
+addSbtPlugin("com.github.sbt" % "sbt-git" % "2.0.0")
 
 addSbtPlugin("com.lightbend.sbt" % "sbt-javaagent" % "0.1.6")
 

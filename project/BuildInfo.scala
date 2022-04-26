@@ -1,7 +1,7 @@
 import sbt._
 
 import sbt.Keys._
-import com.typesafe.sbt.SbtGit.git
+import com.github.sbt.git.SbtGit.git
 
 object BuildInfo {
   lazy val createBuildInfoFileTask: Def.Initialize[Task[Seq[File]]] = Def.task {
