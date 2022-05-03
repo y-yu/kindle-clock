@@ -9,7 +9,8 @@ class JedisClientProvider @Inject() (
   redisConfiguration: RedisConfiguration
 ) extends Provider[Jedis] {
   lazy val jedis: Jedis = new Jedis(
-    redisConfiguration.host
+    redisConfiguration.host,
+    redisConfiguration.timeout.toMillis.toInt
   )
 
   override def get(): Jedis =

@@ -5,7 +5,6 @@ import javax.inject.Inject
 import kindleclock.domain.interfaces.infra.cache.CacheClient
 import kindleclock.infra.datamodel.awair.AwairDataModel
 import redis.clients.jedis.Jedis
-
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.concurrent.duration.Duration
