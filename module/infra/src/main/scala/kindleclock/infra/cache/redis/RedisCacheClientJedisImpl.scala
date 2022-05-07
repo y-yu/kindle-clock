@@ -3,24 +3,27 @@ package kindleclock.infra.cache.redis
 import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 import kindleclock.domain.interfaces.infra.cache.CacheClient
-import kindleclock.infra.datamodel.awair.AwairDataModel
 import org.slf4j.LoggerFactory
 import redis.clients.jedis.Jedis
 import redis.clients.jedis.exceptions.JedisConnectionException
+import scalapb.GeneratedMessage
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
+import scala.concurrent.blocking
 import scala.concurrent.duration.Duration
 
-class RedisCacheClientJedisImpl @Inject() (
+class RedisCacheClientJedisImpl[A] @Inject() (
   jedis: Jedis
 )(implicit
-  ec: ExecutionContext
-) extends CacheClient[AwairDataModel] {
+  ec: ExecutionContext,
+  binaryFormat: BinaryFormat[A]
+) extends CacheClient[A] {
+
   private val logger = LoggerFactory.getLogger(this.getClass)
 
   private val charset = StandardCharsets.UTF_8
 
-  private def closeOnErrorByDefault[A](default: A): PartialFunction[Throwable, A] = {
+  private def closeOnErrorByDefault[B](default: B): PartialFunction[Throwable, B] = {
     case e: JedisConnectionException =>
       logger.warn("Jedis error!", e)
       jedis.close()
@@ -30,24 +33,23 @@ class RedisCacheClientJedisImpl @Inject() (
 
   override def get(
     keyName: String
-  ): Future[Option[AwairDataModel]] =
-    Future(
-      Option(
-        jedis
-          .get(keyName.getBytes(charset))
-      ).map(AwairDataModel.parseFrom)
-    ).recover(closeOnErrorByDefault(None))
+  ): Future[Option[A]] = (for {
+    binary <- Future(blocking(jedis.get(keyName.getBytes(charset))))
+    result <-
+      if (binary.isEmpty) Future.successful(None)
+      else Future.fromTry(binaryFormat.parseFrom(binary).map(Some.apply))
+  } yield result).recover(closeOnErrorByDefault(None))
 
   override def save(
     keyName: String,
-    a: AwairDataModel,
+    a: A,
     expiration: Duration
   ): Future[Boolean] =
     Future(
       jedis.setex(
         keyName.getBytes(charset),
         expiration.toSeconds,
-        a.toByteArray
+        binaryFormat.toBytes(a)
       ) == "OK"
     ).recover(closeOnErrorByDefault(false))
 

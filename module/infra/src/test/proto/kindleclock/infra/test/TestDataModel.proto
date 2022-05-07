@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package kindleclock.infra.test;
+
+message TestDataModel {
+  int32 id = 1;
+  string name = 2;
+  repeated TestInfo info = 3;
+}
+
+message TestInfo {
+  double value = 1;
+}

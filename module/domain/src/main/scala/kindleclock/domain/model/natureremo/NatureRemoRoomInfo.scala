@@ -1,5 +1,6 @@
 package kindleclock.domain.model.natureremo
 
+import kindleclock.domain.model.ElectricEnergy
 import kindleclock.domain.model.Humidity
 import kindleclock.domain.model.Temperature
 

@@ -2,13 +2,15 @@ package kindleclock.infra.cache.redis
 
 import java.net.URI
 import kindleclock.infra.datamodel.awair.AwairDataModel
+import kindleclock.infra.test.TestDataModel
+import kindleclock.infra.test.TestInfo
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.diagrams.Diagrams
 import org.scalatest.flatspec.AnyFlatSpec
 import redis.clients.jedis.Jedis
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 class RedisCacheClientJedisImplTest extends AnyFlatSpec with Diagrams with BeforeAndAfterAll {
   val jedis = new Jedis(
@@ -18,7 +20,7 @@ class RedisCacheClientJedisImplTest extends AnyFlatSpec with Diagrams with Befor
   trait SetUpWithDockerRedis extends DockerRedisConfiguration {
     val dummyKeyName = "key_name"
 
-    val sut = new RedisCacheClientJedisImpl(
+    val sut = new RedisCacheClientJedisImpl[TestDataModel](
       jedis
     )
   }
@@ -29,13 +31,10 @@ class RedisCacheClientJedisImplTest extends AnyFlatSpec with Diagrams with Befor
   }
 
   "save" should "store the data successfully" in new SetUpWithDockerRedis {
-    val data = AwairDataModel(
-      55,
-      1.0,
-      2.0,
-      3,
-      4,
-      5.0
+    val data = TestDataModel.of(
+      id = 55,
+      name = "name",
+      info = Seq(TestInfo.of(1.0), TestInfo.of(2.2))
     )
 
     val actual = Await.result(
@@ -51,13 +50,10 @@ class RedisCacheClientJedisImplTest extends AnyFlatSpec with Diagrams with Befor
   }
 
   it should "store and get the data successfully" in new SetUpWithDockerRedis {
-    val data = AwairDataModel(
-      55,
-      1.0,
-      2.0,
-      3,
-      4,
-      5.0
+    val data = TestDataModel.of(
+      id = 55,
+      name = "name",
+      info = Seq(TestInfo.of(1.0), TestInfo.of(2.2))
     )
 
     val actual = Await.result(

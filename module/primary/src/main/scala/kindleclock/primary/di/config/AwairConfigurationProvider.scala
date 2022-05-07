@@ -5,7 +5,7 @@ import javax.inject.Inject
 import javax.inject.Provider
 import kindleclock.domain.model.config.api.AwairConfiguration
 import play.api.Configuration
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 class AwairConfigurationProvider @Inject() (
   configuration: Configuration

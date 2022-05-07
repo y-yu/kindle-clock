@@ -12,8 +12,8 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import play.api.libs.json.Reads
 import scala.concurrent.Future
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
+import play.api.libs.functional.syntax.*
+import play.api.libs.json.*
 import scala.concurrent.ExecutionContext
 import scala.concurrent.blocking
 
@@ -23,7 +23,7 @@ class OpenWeatherMapApiClientImpl @Inject() (
 )(implicit
   executionContext: ExecutionContext
 ) extends OpenWeatherMapApiClient {
-  import OpenWeatherMapApiClientImpl._
+  import OpenWeatherMapApiClientImpl.*
 
   private val getOpenWeatherMapInfoRequest: Request =
     new Request.Builder()
