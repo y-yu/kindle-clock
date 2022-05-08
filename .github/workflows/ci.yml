@@ -7,15 +7,18 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ 11 ]
-        setScala3: [ "", "SetScala3"]
+        java-distribution: [ 'temurin' ]
+        java-version: [ '11', '17' ]
+        setScala3: [ '', 'SetScala3' ]
     steps:
       - uses: actions/checkout@v2
       - name: Docker pull
         run: docker-compose pull
-      - uses: actions/setup-java@v1
+      - uses: actions/setup-java@v3
         with:
-          java-version: ${{ matrix.java }}
+          distribution: ${{ matrix.java-distribution }}
+          java-version: ${{ matrix.java-version }}
+          cache: 'sbt'
       - uses: coursier/cache-action@v6
       - name: Test
         run: ./sbt ${{ matrix.setScala3 }} stage test
