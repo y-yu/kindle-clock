@@ -3,7 +3,7 @@ package kindleclock.infra.api.openweathermap
 import java.time.ZonedDateTime
 import java.time.Instant
 import javax.inject.Inject
-import kindleclock.domain.interfaces.infra.api.openweathermap.OpenWeatherMapApiClient
+import kindleclock.domain.interface.infra.api.openweathermap.OpenWeatherMapApiClient
 import kindleclock.domain.lib.DefaultTimeZone
 import kindleclock.domain.model.WeatherIcon
 import kindleclock.domain.model.config.api.OpenWeatherMapConfiguration

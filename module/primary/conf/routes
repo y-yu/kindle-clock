@@ -1,5 +1,6 @@
 
 
 GET       /       kindleclock.primary.controller.ShowKindleClockController.show
+GET       /:resolution       kindleclock.primary.controller.ShowKindleClockController.showWithResolution(resolution: String)
 
 GET       /build_info       kindleclock.primary.controller.ShowBuildInfoController.show

@@ -3,8 +3,8 @@ package kindleclock.infra.api.switchbot
 import java.time.Clock
 import java.time.ZonedDateTime
 import javax.inject.Inject
-import kindleclock.domain.interfaces.infra.api.switchbot.SwitchBotApiClient
-import kindleclock.domain.interfaces.infra.cache.CacheClient
+import kindleclock.domain.interface.infra.api.switchbot.SwitchBotApiClient
+import kindleclock.domain.interface.infra.cache.CacheClient
 import kindleclock.domain.lib.DefaultTimeZone
 import kindleclock.domain.model.Humidity
 import kindleclock.domain.model.Temperature

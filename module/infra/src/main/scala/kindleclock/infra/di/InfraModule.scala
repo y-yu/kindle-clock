@@ -9,10 +9,10 @@ import kindleclock.infra.api.openweathermap.OpenWeatherMapApiClientImpl
 import kindleclock.infra.cache.redis.JedisClientProvider
 import kindleclock.infra.cache.redis.RedisCacheClientJedisImpl
 import kindleclock.infra.datamodel.awair.AwairDataModel
-import kindleclock.domain.interfaces.infra.api.awair.AwairApiClient
-import kindleclock.domain.interfaces.infra.api.natureremo.NatureRemoApiClient
-import kindleclock.domain.interfaces.infra.api.openweathermap.OpenWeatherMapApiClient
-import kindleclock.domain.interfaces.infra.cache.CacheClient
+import kindleclock.domain.interface.infra.api.awair.AwairApiClient
+import kindleclock.domain.interface.infra.api.natureremo.NatureRemoApiClient
+import kindleclock.domain.interface.infra.api.openweathermap.OpenWeatherMapApiClient
+import kindleclock.domain.interface.infra.cache.CacheClient
 import kindleclock.infra.cache.redis.BinaryFormat
 import kindleclock.infra.datamodel.awair.AwairDataModel
 import kindleclock.infra.di.InfraModule.RedisCacheClientJedisImplAwairDataModel

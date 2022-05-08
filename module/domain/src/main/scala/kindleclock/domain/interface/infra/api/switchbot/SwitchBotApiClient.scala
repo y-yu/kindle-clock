@@ -1,4 +1,4 @@
-package kindleclock.domain.interfaces.infra.api.switchbot
+package kindleclock.domain.interface.infra.api.switchbot
 
 import kindleclock.domain.model.switchbot.SwitchBotMeterInfo
 import scala.concurrent.Future

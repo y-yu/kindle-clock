@@ -5,8 +5,8 @@ import java.time.Clock
 import java.time.ZonedDateTime
 import javax.inject.Inject
 import kindleclock.infra.datamodel.awair.AwairDataModel
-import kindleclock.domain.interfaces.infra.api.awair.AwairApiClient
-import kindleclock.domain.interfaces.infra.cache.CacheClient
+import kindleclock.domain.interface.infra.api.awair.AwairApiClient
+import kindleclock.domain.interface.infra.cache.CacheClient
 import kindleclock.domain.lib.DefaultTimeZone
 import kindleclock.domain.model.Humidity
 import kindleclock.domain.model.Temperature

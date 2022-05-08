@@ -1,4 +1,4 @@
-package kindleclock.domain.interfaces.infra.cache
+package kindleclock.domain.interface.infra.cache
 
 import scala.concurrent.Future
 import scala.concurrent.duration.Duration

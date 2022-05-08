@@ -8,10 +8,11 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 import javax.inject.Inject
-import kindleclock.domain.interfaces.usecase.GetKindleClockInfoUsecase.ShowKindleImageUsecaseResult
+import kindleclock.domain.interface.usecase.GetKindleClockInfoUsecase.ShowKindleImageUsecaseResult
 import kindleclock.domain.lib.DefaultTimeZone
 import kindleclock.domain.model.Color as KindleClockColor
 import kindleclock.domain.model.awair.AwairRoomInfo
+import kindleclock.domain.model.device.Resolution
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory
 import org.apache.batik.util.XMLResourceDescriptor
 import play.api.mvc.Result
@@ -26,7 +27,8 @@ class KindleClockPresenter @Inject() (
   clock: Clock
 ) {
   def result(
-    arg: ShowKindleImageUsecaseResult
+    arg: ShowKindleImageUsecaseResult,
+    resolution: Resolution
   ): Future[Result] = {
     val now = OffsetDateTime.now(clock.withZone(DefaultTimeZone.jst))
 
@@ -34,7 +36,8 @@ class KindleClockPresenter @Inject() (
       template(
         arg,
         now,
-        arg.backgroundColor == KindleClockColor.White
+        arg.backgroundColor == KindleClockColor.White,
+        resolution
       ).toString
     )
     val doc =
@@ -73,7 +76,8 @@ class KindleClockPresenter @Inject() (
   private def template(
     result: ShowKindleImageUsecaseResult,
     now: OffsetDateTime,
-    isFontColorBlack: Boolean
+    isFontColorBlack: Boolean,
+    resolution: Resolution
   ): Elem = {
     def getAwairRoomInfo(
       f: AwairRoomInfo => String
@@ -101,7 +105,7 @@ class KindleClockPresenter @Inject() (
         </style>
     }
 
-    <svg width="758" height="1024" xmlns="http://www.w3.org/2000/svg">
+    <svg width={resolution.width.toString} height={resolution.height.toString} xmlns="http://www.w3.org/2000/svg">
       {style}
       <g>
         <g transform="scale(3) translate(15.055 65.166)" class="imageColor">

@@ -1,4 +1,4 @@
-package kindleclock.domain.interfaces.infra.api.openweathermap
+package kindleclock.domain.interface.infra.api.openweathermap
 
 import kindleclock.domain.model.openweathermap.OpenWeatherMapInfo
 import scala.concurrent.Future
