@@ -1,19 +1,19 @@
 name: Deploy to Heroku
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        java: [ 11 ]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
+      - uses: actions/setup-java@v3
         with:
-          java-version: ${{ matrix.java }}
+          distribution: 'temurin'
+          java-version: '11'
+          cache: 'sbt'
       - uses: coursier/cache-action@v5
       - name: Deploy to Heroku
         run: HEROKU_API_KEY=${{ secrets.HEROKU_API_KEY }} ./sbt SetScala3 stage deployHeroku
