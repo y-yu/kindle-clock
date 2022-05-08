@@ -1,4 +1,4 @@
-package kindleclock.domain.interfaces.infra.api.awair
+package kindleclock.domain.interface.infra.api.awair
 
 import kindleclock.domain.eff.KindleClockEitherEffect._kindleClockEither
 import kindleclock.domain.model.awair.AwairRoomInfo

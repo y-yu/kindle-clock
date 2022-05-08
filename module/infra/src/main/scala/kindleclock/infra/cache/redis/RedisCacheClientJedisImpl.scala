@@ -2,7 +2,7 @@ package kindleclock.infra.cache.redis
 
 import java.nio.charset.StandardCharsets
 import javax.inject.Inject
-import kindleclock.domain.interfaces.infra.cache.CacheClient
+import kindleclock.domain.interface.infra.cache.CacheClient
 import org.slf4j.LoggerFactory
 import redis.clients.jedis.Jedis
 import redis.clients.jedis.exceptions.JedisConnectionException
@@ -36,7 +36,7 @@ class RedisCacheClientJedisImpl[A] @Inject() (
   ): Future[Option[A]] = (for {
     binary <- Future(blocking(jedis.get(keyName.getBytes(charset))))
     result <-
-      if (binary.isEmpty) Future.successful(None)
+      if (Option(binary).isEmpty || binary.isEmpty) Future.successful(None)
       else Future.fromTry(binaryFormat.parseFrom(binary).map(Some.apply))
   } yield result).recover(closeOnErrorByDefault(None))
 

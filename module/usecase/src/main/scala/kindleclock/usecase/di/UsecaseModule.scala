@@ -1,7 +1,7 @@
 package kindleclock.usecase.di
 
 import com.google.inject.AbstractModule
-import kindleclock.domain.interfaces.usecase.GetKindleClockInfoUsecase
+import kindleclock.domain.interface.usecase.GetKindleClockInfoUsecase
 import kindleclock.usecase.GetKindleClockInfoUsecaseImpl
 
 class UsecaseModule extends AbstractModule {

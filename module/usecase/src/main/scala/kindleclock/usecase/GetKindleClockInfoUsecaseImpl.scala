@@ -4,11 +4,11 @@ import kindleclock.domain.eff.KindleClockEitherEffect.KindleClockEither
 import java.time.Clock
 import java.time.ZonedDateTime
 import javax.inject.Inject
-import kindleclock.domain.interfaces.infra.api.awair.AwairApiClient
-import kindleclock.domain.interfaces.infra.api.natureremo.NatureRemoApiClient
-import kindleclock.domain.interfaces.infra.api.openweathermap.OpenWeatherMapApiClient
-import kindleclock.domain.interfaces.usecase.GetKindleClockInfoUsecase
-import kindleclock.domain.interfaces.usecase.GetKindleClockInfoUsecase.ShowKindleImageUsecaseResult
+import kindleclock.domain.interface.infra.api.awair.AwairApiClient
+import kindleclock.domain.interface.infra.api.natureremo.NatureRemoApiClient
+import kindleclock.domain.interface.infra.api.openweathermap.OpenWeatherMapApiClient
+import kindleclock.domain.interface.usecase.GetKindleClockInfoUsecase
+import kindleclock.domain.interface.usecase.GetKindleClockInfoUsecase.ShowKindleImageUsecaseResult
 import kindleclock.domain.lib.DefaultTimeZone
 import kindleclock.domain.model.Color
 import kindleclock.domain.model.error.KindleClockError

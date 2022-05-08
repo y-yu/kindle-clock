@@ -1,6 +1,6 @@
-package kindleclock.domain.interfaces.usecase
+package kindleclock.domain.interface.usecase
 
-import kindleclock.domain.interfaces.usecase.GetKindleClockInfoUsecase.ShowKindleImageUsecaseResult
+import kindleclock.domain.interface.usecase.GetKindleClockInfoUsecase.ShowKindleImageUsecaseResult
 import kindleclock.domain.model.Color
 import kindleclock.domain.model.awair.AwairRoomInfo
 import kindleclock.domain.model.error.KindleClockError

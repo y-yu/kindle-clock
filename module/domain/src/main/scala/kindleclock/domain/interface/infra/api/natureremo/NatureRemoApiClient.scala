@@ -1,4 +1,4 @@
-package kindleclock.domain.interfaces.infra.api.natureremo
+package kindleclock.domain.interface.infra.api.natureremo
 
 import kindleclock.domain.model.natureremo.NatureRemoRoomInfo
 import scala.concurrent.Future
