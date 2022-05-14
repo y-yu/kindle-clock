@@ -6,6 +6,7 @@ import kindleclock.domain.model.awair.AwairRoomInfo
 import kindleclock.domain.model.error.KindleClockError
 import kindleclock.domain.model.natureremo.NatureRemoRoomInfo
 import kindleclock.domain.model.openweathermap.OpenWeatherMapInfo
+import kindleclock.domain.model.switchbot.SwitchBotMeterInfo
 import scala.concurrent.Future
 
 trait GetKindleClockInfoUsecase {
@@ -17,6 +18,7 @@ object GetKindleClockInfoUsecase {
     awairRoomInfo: Either[KindleClockError, AwairRoomInfo],
     natureRemoRoomInfo: NatureRemoRoomInfo,
     openWeatherMapInfo: OpenWeatherMapInfo,
+    switchBotMeterInfo: Seq[SwitchBotMeterInfo],
     backgroundColor: KindleClockColor
   )
 }

@@ -12,10 +12,11 @@ import kindleclock.infra.datamodel.awair.AwairDataModel
 import kindleclock.domain.interface.infra.api.awair.AwairApiClient
 import kindleclock.domain.interface.infra.api.natureremo.NatureRemoApiClient
 import kindleclock.domain.interface.infra.api.openweathermap.OpenWeatherMapApiClient
+import kindleclock.domain.interface.infra.api.switchbot.SwitchBotApiClient
 import kindleclock.domain.interface.infra.cache.CacheClient
-import kindleclock.infra.cache.redis.BinaryFormat
-import kindleclock.infra.datamodel.awair.AwairDataModel
-import kindleclock.infra.di.InfraModule.RedisCacheClientJedisImplAwairDataModel
+import kindleclock.infra.api.switchbot.SwitchBotApiClientImpl
+import kindleclock.infra.datamodel.switchbot.SwitchBotDevicesDataModel
+import kindleclock.infra.di.InfraModule.*
 import redis.clients.jedis.Jedis
 import scala.concurrent.ExecutionContext
 
@@ -28,6 +29,10 @@ class InfraModule extends AbstractModule {
     bind(classOf[AwairApiClient]).to(classOf[AwairApiClientImpl])
     bind(classOf[NatureRemoApiClient]).to(classOf[NatureRemoApiClientImpl])
     bind(classOf[OpenWeatherMapApiClient]).to(classOf[OpenWeatherMapApiClientImpl])
+    bind(new TypeLiteral[CacheClient[SwitchBotDevicesDataModel]]() {}).to(
+      classOf[SwitchBotApiClientJedisImplSwitchBotDataModel]
+    )
+    bind(classOf[SwitchBotApiClient]).to(classOf[SwitchBotApiClientImpl])
   }
 }
 
@@ -42,4 +47,9 @@ object InfraModule {
     jedis: Jedis
   )(implicit ec: ExecutionContext)
     extends RedisCacheClientJedisImpl[AwairDataModel](jedis)
+
+  class SwitchBotApiClientJedisImplSwitchBotDataModel @Inject() (
+    jedis: Jedis
+  )(implicit ec: ExecutionContext)
+    extends RedisCacheClientJedisImpl[SwitchBotDevicesDataModel](jedis)
 }

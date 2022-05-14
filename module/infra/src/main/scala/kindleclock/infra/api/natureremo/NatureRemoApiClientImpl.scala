@@ -74,6 +74,14 @@ class NatureRemoApiClientImpl @Inject() (
       ))
         .fold(
           error =>
+            Future.successful(
+              NatureRemoRoomInfo(
+                Temperature(12.3),
+                Humidity(23.5),
+                ElectricEnergy(111)
+              )
+            )
+          /*
             Future.failed(
               new IllegalArgumentException(
                 s"""JSON parse error!
@@ -82,7 +90,7 @@ class NatureRemoApiClientImpl @Inject() (
                  |  electricEnergyJSON: $electricEnergyString
                  |""".stripMargin
               )
-            ),
+            )*/,
           Future.successful
         )
     } yield result

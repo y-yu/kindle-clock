@@ -10,6 +10,7 @@ import kindleclock.domain.lib.DefaultTimeZone
 import kindleclock.domain.model.KindleClockColor
 import kindleclock.domain.model.awair.AwairRoomInfo
 import kindleclock.domain.model.device.Resolution
+import kindleclock.domain.model.switchbot.SwitchBotMeterInfo
 import play.api.mvc.Result
 import scala.concurrent.Future
 import scala.xml.Elem
@@ -54,6 +55,11 @@ class ShowInfoPresenter @Inject() (
         f
       )
 
+    def getSwitchBotMeterInfo(
+      f: SwitchBotMeterInfo => String
+    ): String =
+      result.switchBotMeterInfo.headOption.fold("N/A")(f)
+
     val dateFormatter = DateTimeFormatter
       .ofPattern("EEE, MMM d", Locale.ENGLISH)
     val clockFormatter = DateTimeFormatter
@@ -74,80 +80,83 @@ class ShowInfoPresenter @Inject() (
 
     <svg width={resolution.width.toString} height={resolution.height.toString} xmlns="http://www.w3.org/2000/svg">
       {style}
-      <g>
-        <g transform="scale(3) translate(15.055 65.166)" class="imageColor">
+      <title>Kindle Clock</title>
+
+      <g font-family="DejaVu Sans">
+        <g transform="scale(3.5) translate(15 -10)" class="imageColor">
           {result.openWeatherMapInfo.weatherIcon.svg}
         </g>
-        <title>Kindle Clock</title>
+        <text font-size="10px" y="270" x="320" text-anchor="end">
+          {result.openWeatherMapInfo.updatedAt.toString}
+        </text>
 
-        <g font-family="DejaVu Sans">
-          <text font-size="110px" y="152" x="380" text-anchor="middle">
-            {now.format(dateFormatter)}
-          </text>
+        <text font-size="35px"  y="80" x="570" text-anchor="middle">Score:</text>
+        <text font-size="90px" y="180" x="570" text-anchor="middle">
+          {getAwairRoomInfo(_.score.value.toString)}
+        </text>
 
-          <text font-size="35px"  y="230" x="560" text-anchor="middle">Score:</text>
-          <text font-size="100px" y="320" x="560" text-anchor="middle">
-            {getAwairRoomInfo(_.score.value.toString)}
-          </text>
-
-          <text font-size="35px"  y="400" x="540" text-anchor="middle">Temperature:</text>
-
-          <text font-size="60px"  y="459" x="515" text-anchor="end">
+        <text y="360" x="20" font-size='30px'>
+          <tspan x='20' dy='2em'>AWAIR</tspan>
+          <tspan x='20' dy='4em' text-anchor="midle">Nature</tspan>
+          <tspan x='40' dy="1em" text-anchor="midle">Remo</tspan>
+          <tspan x='20' dy='4em' text-anchor="midle">SwitchBot</tspan>
+        </text>
+        
+        <text y='360' x='170' font-size='90px'>
+          <tspan x='200' dy='-1em' dx="0.5em" font-size='30px'>Temperature</tspan>
+          <tspan x='200' dy='1.2em'>
             {getAwairRoomInfo(info => doubleSawedOffString(info.temperature.value))}
-          </text>
-          <text font-size="15px"  y="479" x="515" text-anchor="end">AWAIR</text>
-          <text font-size="100px" y="489" x="520" text-anchor="start">/</text>
-          <text font-size="15px"  y="439" x="555" text-anchor="start">Nature Remo</text>
-          <text font-size="60px"  y="489" x="555" text-anchor="start">
+            <tspan font-size="40px" dx="-0.5em" text-anchor="end">°C</tspan>
+          </tspan>
+          <tspan x='200' dy='1.5em'>
             {doubleSawedOffString(result.natureRemoRoomInfo.temperature.value)}
-          </text>
-          <text font-size="40px"  y="489" x="735" text-anchor="end">°C</text>
+            <tspan font-size="40px" dx="-0.5em" text-anchor="end">°C</tspan>
+          </tspan>
+          <tspan x='200' dy='1.5em'>
+            {getSwitchBotMeterInfo(info => doubleSawedOffString(info.temperature.value))}
+            <tspan font-size="40px" dx="-0.5em" text-anchor="end">°C</tspan>
+          </tspan>
+        </text>
 
-          <text font-size="35px"  y="555" x="540" text-anchor="middle">Humidity:</text>
-
-          <text font-size="60px"  y="610" x="515" text-anchor="end">
+        <text y='360' x='520' font-size='90px'>
+          <tspan x='490' dy='-1em' dx="1.2em" font-size='30px'>Humidity</tspan>
+          <tspan x='490' dy='1.2em'>
             {getAwairRoomInfo(info => doubleSawedOffString(info.humidity.value))}
-          </text>
-          <text font-size="15px"  y="630" x="515" text-anchor="end">AWAIR</text>
-          <text font-size="100px" y="640" x="520" text-anchor="start">/</text>
-          <text font-size="15px"  y="590" x="555" text-anchor="start">Nature Remo</text>
-          <text font-size="60px"  y="640" x="555" text-anchor="start">
+            <tspan font-size="40px" dx="-0.5em" text-anchor="end">%</tspan>
+          </tspan>
+          <tspan x='490' dy='1.5em'>
             {doubleSawedOffString(result.natureRemoRoomInfo.humidity.value)}
-          </text>
-          <text font-size="40px"  y="640" x="730" text-anchor="end">%</text>
+            <tspan font-size="40px" dx="-0.5em" text-anchor="end">%</tspan>
+          </tspan>
+          <tspan x='490' dy='1.5em'>
+            {getSwitchBotMeterInfo(info => doubleSawedOffString(info.humidity.value))}
+            <tspan font-size="40px" dx="-0.5em" text-anchor="end">%</tspan>
+          </tspan>
+        </text>
+        
+        <text font-size="35px"  y="780" x="250" text-anchor="middle">Electric Energy:</text>
+        <text font-size="90px"  y="850" x="565" text-anchor="end">
+          {result.natureRemoRoomInfo.electricEnergy.value}
+        </text>
+        <text font-size="64px"  y="850" x="570" text-anchor="start">W</text>
 
-          <text font-size="10px"  y="500" x="320" text-anchor="end">
-            {result.openWeatherMapInfo.updatedAt.toString}
-          </text>
+        <text font-size="35px"  y="923" x="50"  text-anchor="middle">CO<tspan baseline-shift="sub" font-size="25">2</tspan>:</text>
+        <text font-size="64px"  y="993" x="180" text-anchor="end">
+          {getAwairRoomInfo(_.co2.value.toString)}
+        </text>
+        <text font-size="35px"  y="983" x="220" text-anchor="middle">ppm</text>
 
-          <text font-size="35px"  y="555" x="150" text-anchor="middle">Electric Energy:</text>
-          <text font-size="90px"  y="640" x="265" text-anchor="end">
-            {result.natureRemoRoomInfo.electricEnergy.value}
-          </text>
-          <text font-size="64px"  y="640" x="270" text-anchor="start">W</text>
+        <text font-size="35px"  y="923" x="300" text-anchor="middle">VOC:</text>
+        <text font-size="64px"  y="993" x="440" text-anchor="end">
+          {getAwairRoomInfo(_.voc.value.toString)}
+        </text>
+        <text font-size="35px"  y="983" x="475" text-anchor="middle">ppb</text>
 
-          <text font-size="35px"  y="723" x="50"  text-anchor="middle">CO<tspan baseline-shift="sub" font-size="25">2</tspan>:</text>
-          <text font-size="64px"  y="783" x="180" text-anchor="end">
-            {getAwairRoomInfo(_.co2.value.toString)}
-          </text>
-          <text font-size="35px"  y="783" x="220" text-anchor="middle">ppm</text>
-
-          <text font-size="35px"  y="723" x="300" text-anchor="middle">VOC:</text>
-          <text font-size="64px"  y="783" x="440" text-anchor="end">
-            {getAwairRoomInfo(_.voc.value.toString)}
-          </text>
-          <text font-size="35px"  y="783" x="475" text-anchor="middle">ppb</text>
-
-          <text font-size="35px"  y="723" x="575" text-anchor="middle">PM2.5:</text>
-          <text font-size="64px"  y="783" x="630" text-anchor="end">
-            {getAwairRoomInfo(info => doubleSawedOffString(info.pm25.value))}
-          </text>
-          <text font-size="35px"  y="783" x="690" text-anchor="middle">μg/m<tspan baseline-shift="super">3</tspan></text>
-
-          <text font-size="180px" y="960" x="380" text-anchor="middle">
-            {now.format(clockFormatter)}
-          </text>
-        </g>
+        <text font-size="35px"  y="923" x="575" text-anchor="middle">PM2.5:</text>
+        <text font-size="64px"  y="993" x="630" text-anchor="end">
+          {getAwairRoomInfo(info => doubleSawedOffString(info.pm25.value))}
+        </text>
+        <text font-size="35px"  y="983" x="690" text-anchor="middle">μg/m<tspan baseline-shift="super">3</tspan></text>
       </g>
     </svg>
   }
