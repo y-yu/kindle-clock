@@ -9,14 +9,16 @@ import kindleclock.domain.interface.usecase.GetKindleClockInfoUsecase
 import kindleclock.domain.model.device.Resolution
 import kindleclock.primary.action.AuthenticatedActionBuilder
 import kindleclock.primary.input.ResolutionParser
-import kindleclock.primary.presenter.KindleClockPresenter
+import kindleclock.primary.presenter.ShowClockPresenter
+import kindleclock.primary.presenter.ShowInfoPresenter
 import play.api.Logging
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
 class ShowKindleClockController @Inject() (
-  kindleClockPresenter: KindleClockPresenter,
+  showInfoPresenter: ShowInfoPresenter,
   getKindleClockInfoUsecase: GetKindleClockInfoUsecase,
+  showClockPresenter: ShowClockPresenter,
   cc: ControllerComponents,
   authenticatedActionBuilder: AuthenticatedActionBuilder,
   resolutionParser: ResolutionParser
@@ -25,16 +27,24 @@ class ShowKindleClockController @Inject() (
 ) extends AbstractController(cc)
   with Logging {
 
-  private val defaultResolution = Resolution(
-    width = 758,
-    height = 1024
-  )
+  def clock: Action[AnyContent] =
+    authenticatedActionBuilder.action.async { _ =>
+      showClockPresenter.result(
+        Resolution(
+          width = 758,
+          height = 1024
+        )
+      )
+    }
 
   def show: Action[AnyContent] = showInternal(None)
 
-  def showWithResolution(resolution: String): Action[AnyContent] = showInternal(Some(resolution))
-
   private def showInternal(resolutionOpt: Option[String]): Action[AnyContent] = {
+    val defaultResolution = Resolution(
+      width = 758,
+      height = 1024
+    )
+
     authenticatedActionBuilder.action.async { _ =>
       resolutionOpt.map(resolutionParser.parse) match {
         case Some(Left(errorResult)) =>
@@ -42,7 +52,7 @@ class ShowKindleClockController @Inject() (
         case parsedResolutionOpt =>
           (for {
             roomInfo <- getKindleClockInfoUsecase.execute
-            result <- kindleClockPresenter.result(
+            result <- showInfoPresenter.result(
               roomInfo,
               parsedResolutionOpt match {
                 case Some(Right(value)) => value
