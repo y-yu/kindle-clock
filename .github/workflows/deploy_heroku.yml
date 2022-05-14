@@ -12,7 +12,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '8'
           cache: 'sbt'
       - uses: coursier/cache-action@v5
       - name: Deploy to Heroku
