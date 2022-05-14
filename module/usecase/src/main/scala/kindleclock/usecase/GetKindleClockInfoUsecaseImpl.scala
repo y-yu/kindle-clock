@@ -10,7 +10,7 @@ import kindleclock.domain.interface.infra.api.openweathermap.OpenWeatherMapApiCl
 import kindleclock.domain.interface.usecase.GetKindleClockInfoUsecase
 import kindleclock.domain.interface.usecase.GetKindleClockInfoUsecase.ShowKindleImageUsecaseResult
 import kindleclock.domain.lib.DefaultTimeZone
-import kindleclock.domain.model.Color
+import kindleclock.domain.model.KindleClockColor
 import kindleclock.domain.model.error.KindleClockError
 import monix.eval.Task
 import monix.execution.Scheduler
@@ -38,9 +38,9 @@ class GetKindleClockInfoUsecaseImpl @Inject() (
     val zonedDateTime = ZonedDateTime.now(clock.withZone(DefaultTimeZone.jst))
     val backgroundColor =
       if (zonedDateTime.getHour <= 6 || zonedDateTime.getHour >= 17)
-        Color.Black
+        KindleClockColor.Black
       else
-        Color.White
+        KindleClockColor.White
 
     for {
       natureRemoInfo <- natureRemoApiClient.getRoomInfo
