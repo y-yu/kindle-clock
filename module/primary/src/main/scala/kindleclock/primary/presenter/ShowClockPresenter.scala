@@ -1,7 +1,6 @@
 package kindleclock.primary.presenter
 
 import java.time.Clock
-import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -44,15 +43,15 @@ class ShowClockPresenter @Inject() (
           <title>Kindle Clock</title>
   
           <g font-family="DejaVu Sans">
-            <text font-size="110px" y="300" x="380" text-anchor="middle">
+            <text font-size="100px" y="300" x="380" text-anchor="middle">
               {nowJST.format(dateFormatter)}
             </text>
 
-            <text font-size="360px" y="680" x="380" text-anchor="middle">
+            <text font-size="350px" y="680" x="380" text-anchor="middle">
               {nowJST.format(clockFormatter)}
             </text>
 
-            <text font-size="50px" y="850" x="380" text-anchor="middle">
+            <text font-size="60px" y="850" x="380" text-anchor="middle">
               {nowUTC.format(DateTimeFormatter.ISO_DATE_TIME)}
             </text>
           </g>

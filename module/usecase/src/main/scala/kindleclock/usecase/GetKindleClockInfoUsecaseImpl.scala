@@ -7,6 +7,7 @@ import javax.inject.Inject
 import kindleclock.domain.interface.infra.api.awair.AwairApiClient
 import kindleclock.domain.interface.infra.api.natureremo.NatureRemoApiClient
 import kindleclock.domain.interface.infra.api.openweathermap.OpenWeatherMapApiClient
+import kindleclock.domain.interface.infra.api.switchbot.SwitchBotApiClient
 import kindleclock.domain.interface.usecase.GetKindleClockInfoUsecase
 import kindleclock.domain.interface.usecase.GetKindleClockInfoUsecase.ShowKindleImageUsecaseResult
 import kindleclock.domain.lib.DefaultTimeZone
@@ -26,6 +27,7 @@ class GetKindleClockInfoUsecaseImpl @Inject() (
   awairApiClient: AwairApiClient,
   natureRemoApiClient: NatureRemoApiClient,
   openWeatherMapApiClient: OpenWeatherMapApiClient,
+  switchBotApiClient: SwitchBotApiClient,
   clock: Clock
 )(implicit
   ec: ExecutionContext
@@ -45,6 +47,7 @@ class GetKindleClockInfoUsecaseImpl @Inject() (
     for {
       natureRemoInfo <- natureRemoApiClient.getRoomInfo
       openWeatherMapInfo <- openWeatherMapApiClient.getOpenWeatherMapInfo
+      switchBotMeterInfo <- switchBotApiClient.getMeterInfo
       awairInfo <- awairApiClient
         .getRoomInfo[R]
         .runEither[KindleClockError]
@@ -54,6 +57,7 @@ class GetKindleClockInfoUsecaseImpl @Inject() (
       awairInfo,
       natureRemoInfo,
       openWeatherMapInfo,
+      switchBotMeterInfo,
       backgroundColor
     )
   }
