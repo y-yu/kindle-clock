@@ -90,7 +90,7 @@ class ShowInfoPresenter @Inject() (
           {result.openWeatherMapInfo.updatedAt.toString}
         </text>
 
-        <text font-size="35px"  y="70" x="590" text-anchor="middle">
+        <text font-size="50px"  y="70" x="590" text-anchor="middle">
           {nowJST.format(clockFormatter)}
         </text>
         
