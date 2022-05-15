@@ -1,32 +1,44 @@
 package kindleclock.primary.presenter
 
 import java.time.Clock
-import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 import javax.inject.Inject
 import kindleclock.domain.lib.DefaultTimeZone
-import kindleclock.domain.model.KindleClockColor
 import kindleclock.domain.model.device.Resolution
+import kindleclock.primary.util.BackgroundColorDetector
+import kindleclock.primary.util.image.SvgToPngTransformer
 import play.api.mvc.Result
 import play.api.mvc.Results.Ok
 import scala.concurrent.Future
+import scala.xml.Elem
 
 class ShowClockPresenter @Inject() (
   clock: Clock,
-  svgToPngTransformer: SvgToPngTransformer
+  svgToPngTransformer: SvgToPngTransformer,
+  backgroundColorDetector: BackgroundColorDetector
 ) {
+  private val fontSetting: Elem =
+    <defs>
+      <style>
+        @import url("https://fonts.googleapis.com/css2?family=Dosis&amp;display=swap");
+      </style>
+    </defs>
+
   def result(
     resolution: Resolution
   ): Future[Result] = {
+    val backgroundColorAndStyle = backgroundColorDetector.execute
+
     val dateFormatter = DateTimeFormatter
       .ofPattern("EEE, MMM d, YYYY", Locale.ENGLISH)
-    val clockFormatter = DateTimeFormatter
-      .ofPattern("HH:mm", Locale.ENGLISH)
+    val clockHourFormatter = DateTimeFormatter
+      .ofPattern("HH", Locale.ENGLISH)
+    val clockMinuteFormatter = DateTimeFormatter
+      .ofPattern("mm", Locale.ENGLISH)
 
     val instant = clock.instant()
     val nowJST = instant.atZone(DefaultTimeZone.jst)
-    val nowUTC = instant.atZone(ZoneOffset.UTC)
 
     val transform =
       Seq(
@@ -35,26 +47,20 @@ class ShowClockPresenter @Inject() (
 
     val svg =
       <svg width={resolution.width.toString} height={resolution.height.toString} xmlns="http://www.w3.org/2000/svg">
-        <style>
-          text {{ fill: black; }}
-          .imageColor {{ fill: black; }}
-        </style>
-        <g transform={transform}>
-          <title>Kindle Clock</title>
-  
-          <g font-family="DejaVu Sans">
-            <text font-size="100px" y="300" x="380" text-anchor="middle">
-              {nowJST.format(dateFormatter)}
-            </text>
+        {fontSetting}
+        {backgroundColorAndStyle.fontStyle}
 
-            <text font-size="350px" y="680" x="380" text-anchor="middle">
-              {nowJST.format(clockFormatter)}
-            </text>
+        <title>Kindle Clock</title>
+        <g transform={transform} font-family="Dosis">
+          <text font-size="140px" y="300" x="380" text-anchor="middle">
+            {nowJST.format(dateFormatter)}
+          </text>
 
-            <text font-size="60px" y="850" x="380" text-anchor="middle">
-              {nowUTC.format(DateTimeFormatter.ISO_DATE_TIME)}
-            </text>
-          </g>
+          <text font-size="390px" y="720" x="380" text-anchor="middle">
+            <tspan>{nowJST.format(clockHourFormatter)}</tspan>
+            <tspan dy="-0.15em">:</tspan>
+            <tspan dy="0.15em">{nowJST.format(clockMinuteFormatter)}</tspan>
+          </text>
         </g>
       </svg>
 
@@ -62,7 +68,7 @@ class ShowClockPresenter @Inject() (
       Ok(
         svgToPngTransformer.transform(
           svg,
-          KindleClockColor.White
+          backgroundColorAndStyle.background
         )
       ).as("image/png")
     )

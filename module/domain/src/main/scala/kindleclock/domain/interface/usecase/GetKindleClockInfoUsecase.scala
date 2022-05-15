@@ -18,7 +18,6 @@ object GetKindleClockInfoUsecase {
     awairRoomInfo: Either[KindleClockError, AwairRoomInfo],
     natureRemoRoomInfo: NatureRemoRoomInfo,
     openWeatherMapInfo: OpenWeatherMapInfo,
-    switchBotMeterInfo: Seq[SwitchBotMeterInfo],
-    backgroundColor: KindleClockColor
+    switchBotMeterInfo: Seq[SwitchBotMeterInfo]
   )
 }

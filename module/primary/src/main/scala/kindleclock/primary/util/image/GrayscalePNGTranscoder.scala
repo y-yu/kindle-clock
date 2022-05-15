@@ -1,4 +1,4 @@
-package kindleclock.primary.presenter
+package kindleclock.primary.util.image
 
 import java.awt.image.BufferedImage
 import org.apache.batik.transcoder.image.PNGTranscoder
