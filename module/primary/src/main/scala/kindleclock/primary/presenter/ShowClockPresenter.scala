@@ -30,7 +30,7 @@ class ShowClockPresenter @Inject() (
 
     val transform =
       Seq(
-        s"rotate(90, ${resolution.width / 2}, ${resolution.height / 2})"
+        s"rotate(-90, ${resolution.width / 2}, ${resolution.height / 2})"
       ).mkString(" ")
 
     val svg =
