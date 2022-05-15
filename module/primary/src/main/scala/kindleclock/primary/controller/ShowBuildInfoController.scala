@@ -12,13 +12,16 @@ import play.api.mvc.Results
 class ShowBuildInfoController @Inject() (
   cc: ControllerComponents
 ) extends AbstractController(cc) {
+  private lazy val javaVersion: String = System.getProperty("java.version")
+
   def show: Action[AnyContent] =
     Action.apply { _ =>
       Results.Ok(
         Json.obj(
           "build_info" -> Json.obj(
             "scala_version" -> BuildInfo.scalaVersion,
-            "commit_hash" -> BuildInfo.commitHash
+            "commit_hash" -> BuildInfo.commitHash,
+            "java_version" -> javaVersion
           )
         )
       )
