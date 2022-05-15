@@ -12,8 +12,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '8'
-          cache: 'sbt'
+          java-version: '17'
       - uses: coursier/cache-action@v5
       - name: Deploy to Heroku
         run: HEROKU_API_KEY=${{ secrets.HEROKU_API_KEY }} ./sbt SetScala3 stage deployHeroku
