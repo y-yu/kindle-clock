@@ -50,7 +50,7 @@ val noPublishSettings = Seq(
 val herokuSettings =
   Seq(
     Compile / herokuAppName := herokuAppNameRemote,
-    Compile / herokuJdkVersion := "11",
+    Compile / herokuJdkVersion := "17",
     Compile / herokuSkipSubProjects := false
   )
 
