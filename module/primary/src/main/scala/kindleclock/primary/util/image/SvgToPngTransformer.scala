@@ -1,4 +1,4 @@
-package kindleclock.primary.presenter
+package kindleclock.primary.util.image
 
 import java.awt.Color
 import java.io.ByteArrayOutputStream

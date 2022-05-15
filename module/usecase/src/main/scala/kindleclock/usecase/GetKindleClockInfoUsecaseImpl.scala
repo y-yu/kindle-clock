@@ -27,8 +27,7 @@ class GetKindleClockInfoUsecaseImpl @Inject() (
   awairApiClient: AwairApiClient,
   natureRemoApiClient: NatureRemoApiClient,
   openWeatherMapApiClient: OpenWeatherMapApiClient,
-  switchBotApiClient: SwitchBotApiClient,
-  clock: Clock
+  switchBotApiClient: SwitchBotApiClient
 )(implicit
   ec: ExecutionContext
 ) extends GetKindleClockInfoUsecase {
@@ -37,13 +36,6 @@ class GetKindleClockInfoUsecaseImpl @Inject() (
   private val scheduler: Scheduler = Scheduler(ec)
 
   def execute: Future[ShowKindleImageUsecaseResult] = {
-    val zonedDateTime = ZonedDateTime.now(clock.withZone(DefaultTimeZone.jst))
-    val backgroundColor =
-      if (zonedDateTime.getHour <= 6 || zonedDateTime.getHour >= 17)
-        KindleClockColor.Black
-      else
-        KindleClockColor.White
-
     for {
       natureRemoInfo <- natureRemoApiClient.getRoomInfo
       openWeatherMapInfo <- openWeatherMapApiClient.getOpenWeatherMapInfo
@@ -57,8 +49,7 @@ class GetKindleClockInfoUsecaseImpl @Inject() (
       awairInfo,
       natureRemoInfo,
       openWeatherMapInfo,
-      switchBotMeterInfo,
-      backgroundColor
+      switchBotMeterInfo
     )
   }
 }
