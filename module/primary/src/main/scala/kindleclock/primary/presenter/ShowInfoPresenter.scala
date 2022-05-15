@@ -60,10 +60,10 @@ class ShowInfoPresenter @Inject() (
     ): String =
       result.switchBotMeterInfo.headOption.fold("N/A")(f)
 
-    val dateFormatter = DateTimeFormatter
-      .ofPattern("EEE, MMM d", Locale.ENGLISH)
     val clockFormatter = DateTimeFormatter
       .ofPattern("HH:mm", Locale.ENGLISH)
+
+    val nowJST = clock.instant().atZone(DefaultTimeZone.jst)
 
     val style = {
       if (isFontColorBlack)
@@ -83,52 +83,56 @@ class ShowInfoPresenter @Inject() (
       <title>Kindle Clock</title>
 
       <g font-family="DejaVu Sans">
-        <g transform="scale(3.5) translate(15 -10)" class="imageColor">
+        <g transform="scale(3) translate(15 0)" class="imageColor">
           {result.openWeatherMapInfo.weatherIcon.svg}
         </g>
-        <text font-size="10px" y="270" x="320" text-anchor="end">
+        <text font-size="10px" y="270" x="490" text-anchor="end">
           {result.openWeatherMapInfo.updatedAt.toString}
         </text>
 
-        <text font-size="35px"  y="80" x="570" text-anchor="middle">Score:</text>
-        <text font-size="90px" y="180" x="570" text-anchor="middle">
+        <text font-size="35px"  y="70" x="590" text-anchor="middle">
+          {nowJST.format(clockFormatter)}
+        </text>
+        
+        <text font-size="35px"  y="160" x="590" text-anchor="middle">Score:</text>
+        <text font-size="90px" y="260" x="590" text-anchor="middle">
           {getAwairRoomInfo(_.score.value.toString)}
         </text>
 
-        <text y="360" x="20" font-size='30px'>
-          <tspan x='20' dy='2em'>AWAIR</tspan>
-          <tspan x='20' dy='4em' text-anchor="midle">Nature</tspan>
-          <tspan x='40' dy="1em" text-anchor="midle">Remo</tspan>
-          <tspan x='20' dy='4em' text-anchor="midle">SwitchBot</tspan>
+        <text y="360" x="20" font-size="30px">
+          <tspan x="20" dy="2em">AWAIR</tspan>
+          <tspan x="20" dy="4em">Nature</tspan>
+          <tspan x="40" dy="1em">Remo</tspan>
+          <tspan x="20" dy="4em">SwitchBot</tspan>
         </text>
         
-        <text y='360' x='170' font-size='90px'>
-          <tspan x='200' dy='-1em' dx="0.5em" font-size='30px'>Temperature</tspan>
-          <tspan x='200' dy='1.2em'>
+        <text y="360" x="170" font-size="90px">
+          <tspan x="200" dy="-1em" dx="0.5em" font-size="30px">Temperature</tspan>
+          <tspan x="200" dy="1.2em">
             {getAwairRoomInfo(info => doubleSawedOffString(info.temperature.value))}
             <tspan font-size="40px" dx="-0.5em" text-anchor="end">°C</tspan>
           </tspan>
-          <tspan x='200' dy='1.5em'>
+          <tspan x="200" dy="1.5em">
             {doubleSawedOffString(result.natureRemoRoomInfo.temperature.value)}
             <tspan font-size="40px" dx="-0.5em" text-anchor="end">°C</tspan>
           </tspan>
-          <tspan x='200' dy='1.5em'>
+          <tspan x="200" dy="1.5em">
             {getSwitchBotMeterInfo(info => doubleSawedOffString(info.temperature.value))}
             <tspan font-size="40px" dx="-0.5em" text-anchor="end">°C</tspan>
           </tspan>
         </text>
 
-        <text y='360' x='520' font-size='90px'>
-          <tspan x='490' dy='-1em' dx="1.2em" font-size='30px'>Humidity</tspan>
-          <tspan x='490' dy='1.2em'>
+        <text y="360" x="520" font-size="90px">
+          <tspan x="490" dy="-1em" dx="1.2em" font-size="30px">Humidity</tspan>
+          <tspan x="490" dy="1.2em">
             {getAwairRoomInfo(info => doubleSawedOffString(info.humidity.value))}
             <tspan font-size="40px" dx="-0.5em" text-anchor="end">%</tspan>
           </tspan>
-          <tspan x='490' dy='1.5em'>
+          <tspan x="490" dy="1.5em">
             {doubleSawedOffString(result.natureRemoRoomInfo.humidity.value)}
             <tspan font-size="40px" dx="-0.5em" text-anchor="end">%</tspan>
           </tspan>
-          <tspan x='490' dy='1.5em'>
+          <tspan x="490" dy="1.5em">
             {getSwitchBotMeterInfo(info => doubleSawedOffString(info.humidity.value))}
             <tspan font-size="40px" dx="-0.5em" text-anchor="end">%</tspan>
           </tspan>
