@@ -7,7 +7,7 @@ import kindleclock.domain.model.config.api.SwitchBotConfiguration
 import play.api.Configuration
 import scala.concurrent.duration.*
 
-class SwitchBotConfigurationProvider @Inject() (
+class SwitchBotConfigurationProvider @Inject(
   configuration: Configuration
 ) extends Provider[SwitchBotConfiguration] {
   private lazy val config = SwitchBotConfiguration(

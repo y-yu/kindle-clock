@@ -12,7 +12,7 @@ import play.api.mvc.Result
 import play.api.mvc.Results.Ok
 import scala.concurrent.Future
 
-class ShowClockPresenter @Inject() (
+class ShowClockPresenter @Inject(
   clock: Clock,
   svgToPngTransformer: SvgToPngTransformer
 ) {

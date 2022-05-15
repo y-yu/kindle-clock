@@ -16,7 +16,7 @@ import scala.concurrent.Future
 import scala.xml.Elem
 import play.api.mvc.Results.Ok
 
-class ShowInfoPresenter @Inject() (
+class ShowInfoPresenter @Inject(
   clock: Clock,
   svgToPngTransformer: SvgToPngTransformer
 ) {

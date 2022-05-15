@@ -98,7 +98,7 @@ lazy val domain =
     .settings(defaultSettings ++ noPublishSettings: _*)
     .settings(
       libraryDependencies ++= Dependencies.domain.value,
-      (Compile / sourceGenerators) += BuildInfo.createBuildInfoFileTask.taskValue,
+      Compile / sourceGenerators += BuildInfo.createBuildInfoFileTask.taskValue,
       remove213LibraryWhenScala3
     )
     .disablePlugins(PlayScala, PlayLayoutPlugin, ProtocPlugin, HerokuPlugin)
@@ -151,8 +151,8 @@ lazy val primary = project
     defaultSettings ++ herokuSettings: _*
   )
   .settings(
-    (Compile / unmanagedResourceDirectories) += baseDirectory.value / "conf",
-    (Runtime / unmanagedClasspath) += baseDirectory.value / "conf",
+    Compile / unmanagedResourceDirectories += baseDirectory.value / "conf",
+    Runtime / unmanagedClasspath += baseDirectory.value / "conf",
     libraryDependencies ++= Dependencies.primary :+ guice,
     javaAgents += "com.newrelic.agent.java" % "newrelic-agent" % "7.7.0"
   )

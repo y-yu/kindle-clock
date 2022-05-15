@@ -7,7 +7,7 @@ import kindleclock.domain.model.config.api.AwairConfiguration
 import play.api.Configuration
 import scala.concurrent.duration.*
 
-class AwairConfigurationProvider @Inject() (
+class AwairConfigurationProvider @Inject(
   configuration: Configuration
 ) extends Provider[AwairConfiguration] {
   private lazy val config = AwairConfiguration(

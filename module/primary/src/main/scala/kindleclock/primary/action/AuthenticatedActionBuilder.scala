@@ -12,7 +12,7 @@ import play.api.mvc.Result
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class AuthenticatedActionBuilder @Inject() (
+class AuthenticatedActionBuilder @Inject(
   authenticationConfiguration: AuthenticationConfiguration,
   cc: ControllerComponents
 )(implicit

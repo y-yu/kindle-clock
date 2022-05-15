@@ -28,7 +28,7 @@ class SvgToPngTransformer {
     val pngStream = new ByteArrayOutputStream
     val output = new TranscoderOutput(pngStream)
 
-    val t = new GrayscalePNGTranscoder()
+    val t = new GrayscalePNGTranscoder
     t.addTranscodingHint(
       ImageTranscoder.KEY_BACKGROUND_COLOR,
       backgroundColor match {

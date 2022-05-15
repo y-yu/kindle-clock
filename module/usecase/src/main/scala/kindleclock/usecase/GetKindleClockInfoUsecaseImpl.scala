@@ -23,7 +23,7 @@ import org.atnos.eff.syntax.addon.monix.task.toTaskOps
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class GetKindleClockInfoUsecaseImpl @Inject() (
+class GetKindleClockInfoUsecaseImpl @Inject(
   awairApiClient: AwairApiClient,
   natureRemoApiClient: NatureRemoApiClient,
   openWeatherMapApiClient: OpenWeatherMapApiClient,

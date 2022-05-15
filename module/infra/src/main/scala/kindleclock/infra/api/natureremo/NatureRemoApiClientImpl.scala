@@ -15,7 +15,7 @@ import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.concurrent.blocking
 
-class NatureRemoApiClientImpl @Inject() (
+class NatureRemoApiClientImpl @Inject(
   okHttpClient: OkHttpClient,
   natureRemoConfiguration: NatureRemoConfiguration
 )(implicit
@@ -25,7 +25,7 @@ class NatureRemoApiClientImpl @Inject() (
   import NatureRemoApiClientImpl.*
 
   private def requestWithAuthorization(path: String): Request =
-    new Request.Builder()
+    new Request.Builder
       .url(natureRemoConfiguration.natureRemoEndpoint.resolve(path).toURL)
       .addHeader(
         "Authorization",

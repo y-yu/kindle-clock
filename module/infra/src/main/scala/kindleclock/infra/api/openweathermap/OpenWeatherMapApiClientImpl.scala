@@ -17,7 +17,7 @@ import play.api.libs.json.*
 import scala.concurrent.ExecutionContext
 import scala.concurrent.blocking
 
-class OpenWeatherMapApiClientImpl @Inject() (
+class OpenWeatherMapApiClientImpl @Inject(
   okHttpClient: OkHttpClient,
   openWeatherMapConfiguration: OpenWeatherMapConfiguration
 )(implicit
@@ -26,7 +26,7 @@ class OpenWeatherMapApiClientImpl @Inject() (
   import OpenWeatherMapApiClientImpl.*
 
   private val getOpenWeatherMapInfoRequest: Request =
-    new Request.Builder()
+    new Request.Builder
       .url(
         openWeatherMapConfiguration.openWeatherMapEndPoint
           .resolve(
@@ -88,7 +88,7 @@ object OpenWeatherMapApiClientImpl {
     }
 
   implicit val openWeatherMapInfoReads: Reads[OpenWeatherMapInfo] =
-    (((__ \ "weather")(0) \ "icon").read[String] and
+    ((__ \ "weather" (0) \ "icon").read[String] and
       (__ \ "dt").read[Long]).tupled.flatMap { case (icon, dt) =>
       Reads[OpenWeatherMapInfo] { _ =>
         convertToIcon(icon).map(weatherIcon =>

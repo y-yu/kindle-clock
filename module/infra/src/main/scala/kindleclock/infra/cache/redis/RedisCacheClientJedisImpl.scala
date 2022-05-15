@@ -12,7 +12,7 @@ import scala.concurrent.Future
 import scala.concurrent.blocking
 import scala.concurrent.duration.Duration
 
-class RedisCacheClientJedisImpl[A] @Inject() (
+class RedisCacheClientJedisImpl[A] @Inject(
   jedis: Jedis
 )(implicit
   ec: ExecutionContext,

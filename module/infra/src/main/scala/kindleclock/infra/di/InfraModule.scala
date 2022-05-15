@@ -23,13 +23,13 @@ import scala.concurrent.ExecutionContext
 class InfraModule extends AbstractModule {
   override def configure(): Unit = {
     bind(classOf[Jedis]).toProvider(classOf[JedisClientProvider])
-    bind(new TypeLiteral[CacheClient[AwairDataModel]]() {}).to(
+    bind(new TypeLiteral[CacheClient[AwairDataModel]] {}).to(
       classOf[RedisCacheClientJedisImplAwairDataModel]
     )
     bind(classOf[AwairApiClient]).to(classOf[AwairApiClientImpl])
     bind(classOf[NatureRemoApiClient]).to(classOf[NatureRemoApiClientImpl])
     bind(classOf[OpenWeatherMapApiClient]).to(classOf[OpenWeatherMapApiClientImpl])
-    bind(new TypeLiteral[CacheClient[SwitchBotDevicesDataModel]]() {}).to(
+    bind(new TypeLiteral[CacheClient[SwitchBotDevicesDataModel]] {}).to(
       classOf[SwitchBotApiClientJedisImplSwitchBotDataModel]
     )
     bind(classOf[SwitchBotApiClient]).to(classOf[SwitchBotApiClientImpl])
@@ -43,12 +43,12 @@ object InfraModule {
     *   time. This class defines at compile time so the Scala compiler can find the instance and then success
     *   instantiation.
     */
-  class RedisCacheClientJedisImplAwairDataModel @Inject() (
+  class RedisCacheClientJedisImplAwairDataModel @Inject(
     jedis: Jedis
   )(implicit ec: ExecutionContext)
     extends RedisCacheClientJedisImpl[AwairDataModel](jedis)
 
-  class SwitchBotApiClientJedisImplSwitchBotDataModel @Inject() (
+  class SwitchBotApiClientJedisImplSwitchBotDataModel @Inject(
     jedis: Jedis
   )(implicit ec: ExecutionContext)
     extends RedisCacheClientJedisImpl[SwitchBotDevicesDataModel](jedis)

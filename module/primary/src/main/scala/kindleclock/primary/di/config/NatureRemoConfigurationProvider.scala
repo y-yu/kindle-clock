@@ -6,7 +6,7 @@ import javax.inject.Provider
 import kindleclock.domain.model.config.api.NatureRemoConfiguration
 import play.api.Configuration
 
-class NatureRemoConfigurationProvider @Inject() (
+class NatureRemoConfigurationProvider @Inject(
   configuration: Configuration
 ) extends Provider[NatureRemoConfiguration] {
   private lazy val config =

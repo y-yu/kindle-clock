@@ -6,7 +6,7 @@ import javax.inject.Provider
 import kindleclock.domain.model.config.api.OpenWeatherMapConfiguration
 import play.api.Configuration
 
-class OpenWeatherMapConfigurationProvider @Inject() (
+class OpenWeatherMapConfigurationProvider @Inject(
   configuration: Configuration
 ) extends Provider[OpenWeatherMapConfiguration] {
   private lazy val config =

@@ -5,7 +5,7 @@ import javax.inject.Provider
 import kindleclock.domain.model.config.auth.AuthenticationConfiguration
 import play.api.Configuration
 
-class AuthenticationConfigurationProvider @Inject() (
+class AuthenticationConfigurationProvider @Inject(
   configuration: Configuration
 ) extends Provider[AuthenticationConfiguration] {
   private lazy val config =

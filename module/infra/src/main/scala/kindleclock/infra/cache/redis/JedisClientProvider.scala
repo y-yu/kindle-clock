@@ -10,7 +10,7 @@ import redis.clients.jedis.JedisPool
 import scala.concurrent.blocking
 
 @Singleton
-class JedisClientProvider @Inject() (
+class JedisClientProvider @Inject(
   redisConfiguration: RedisConfiguration
 ) extends Provider[Jedis] {
   private val logger = LoggerFactory.getLogger(this.getClass)

@@ -9,7 +9,7 @@ import play.api.mvc.AnyContent
 import play.api.mvc.ControllerComponents
 import play.api.mvc.Results
 
-class ShowBuildInfoController @Inject() (
+class ShowBuildInfoController @Inject(
   cc: ControllerComponents
 ) extends AbstractController(cc) {
   def show: Action[AnyContent] =

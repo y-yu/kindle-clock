@@ -7,7 +7,7 @@ import kindleclock.domain.model.config.redis.RedisConfiguration
 import play.api.Configuration
 import scala.concurrent.duration.FiniteDuration
 
-class RedisConfigurationProvider @Inject() (
+class RedisConfigurationProvider @Inject(
   configuration: Configuration
 ) extends Provider[RedisConfiguration] {
   private lazy val config =

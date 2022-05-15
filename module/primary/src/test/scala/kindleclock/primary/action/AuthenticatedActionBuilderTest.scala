@@ -21,7 +21,7 @@ class AuthenticatedActionBuilderTest extends AnyWordSpec with GuiceOneAppPerSuit
     def test(
       matrix: Map[(AuthenticationConfiguration, String), Int]
     ): Unit = {
-      matrix.foreach { case (config, queryString) -> expected =>
+      matrix.foreach { case config, queryString -> expected =>
         val sut = new AuthenticatedActionBuilder(
           config,
           mockControllerComponents

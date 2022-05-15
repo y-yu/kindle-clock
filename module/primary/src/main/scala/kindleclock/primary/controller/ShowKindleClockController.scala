@@ -15,7 +15,7 @@ import play.api.Logging
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class ShowKindleClockController @Inject() (
+class ShowKindleClockController @Inject(
   showInfoPresenter: ShowInfoPresenter,
   getKindleClockInfoUsecase: GetKindleClockInfoUsecase,
   showClockPresenter: ShowClockPresenter,

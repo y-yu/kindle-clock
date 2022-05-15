@@ -31,7 +31,7 @@ import play.api.libs.json.*
 import scala.concurrent.ExecutionContext
 import scala.concurrent.blocking
 
-class AwairApiClientImpl @Inject() (
+class AwairApiClientImpl @Inject(
   awairConfiguration: AwairConfiguration,
   okHttpClient: OkHttpClient,
   cacheClient: CacheClient[AwairDataModel],
@@ -45,7 +45,7 @@ class AwairApiClientImpl @Inject() (
   private val logger = LoggerFactory.getLogger(this.getClass)
 
   private val getAwairRoomInfo: Request =
-    new Request.Builder()
+    new Request.Builder
       .url(
         awairConfiguration.awairEndpoint
           .resolve(
@@ -153,8 +153,8 @@ object AwairApiClientImpl {
 
   implicit val electricEnergyReads: Reads[AwairRoomInfo] =
     for {
-      score <- ((__ \ "data")(0) \ "score").read[Int]
-      sensors <- ((__ \ "data")(0) \ "sensors").read[List[SensorData]]
+      score <- (__ \ "data" (0) \ "score").read[Int]
+      sensors <- (__ \ "data" (0) \ "sensors").read[List[SensorData]]
       result <- (for {
         temp <- sensors.find(_.comp == "temp")
         humid <- sensors.find(_.comp == "humid")

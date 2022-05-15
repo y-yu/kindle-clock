@@ -21,7 +21,7 @@ import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.concurrent.blocking
 
-class SwitchBotApiClientImpl @Inject() (
+class SwitchBotApiClientImpl @Inject(
   okHttpClient: OkHttpClient,
   switchBotConfiguration: SwitchBotConfiguration,
   cacheClient: CacheClient[SwitchBotDevicesDataModel],
@@ -32,7 +32,7 @@ class SwitchBotApiClientImpl @Inject() (
   import SwitchBotApiClientImpl.*
 
   private def requestWithAuthorization(path: String): Request =
-    new Request.Builder()
+    new Request.Builder
       .url(switchBotConfiguration.switchBotEndpoint.resolve(path).toURL)
       .addHeader(
         "Authorization",
