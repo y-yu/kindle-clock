@@ -10,4 +10,4 @@ addSbtPlugin("com.github.sbt" % "sbt-git" % "2.0.0")
 
 addSbtPlugin("com.lightbend.sbt" % "sbt-javaagent" % "0.1.6")
 
-libraryDependencies += "com.thesamet.scalapb" %% "compilerplugin" % "0.11.10"
+libraryDependencies += "com.thesamet.scalapb" %% "compilerplugin" % "0.11.11"
