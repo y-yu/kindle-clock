@@ -142,9 +142,12 @@ class SwitchBotApiClientImpl @Inject() (
 object SwitchBotApiClientImpl {
   implicit val deviceListReads: Reads[Map[SwitchBotDeviceType, String]] = {
     (__ \ "body" \ "deviceList").read[JsArray].map { case JsArray(values) =>
-      values.map { v =>
-        ((v \ "deviceType").as[SwitchBotDeviceType], (v \ "deviceId").as[String])
-      }.toMap
+      values
+        .filter(v => (v \ "deviceType").isDefined)
+        .map { v =>
+          ((v \ "deviceType").as[SwitchBotDeviceType], (v \ "deviceId").as[String])
+        }
+        .toMap
     }
   }
 
