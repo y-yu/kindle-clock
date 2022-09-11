@@ -18,7 +18,7 @@ object Dependencies {
       "com.google.inject" % "guice" % "5.1.0",
       scalaXmlDependency,
       "org.scalatest" %% "scalatest" % "3.2.13" % "test",
-      "org.mockito" % "mockito-core" % "4.6.1" % "test",
+      "org.mockito" % "mockito-core" % "4.8.0" % "test",
       "org.atnos" %% "eff" % effVersion,
       "org.atnos" %% "eff-monix" % effVersion
     ) ++ (if (scalaBinaryVersion.value == "3") {
