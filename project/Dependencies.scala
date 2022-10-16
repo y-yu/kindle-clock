@@ -24,7 +24,7 @@ object Dependencies {
     ) ++ (if (scalaBinaryVersion.value == "3") {
             Seq(
               "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test cross CrossVersion.for3Use2_13 exclude ("org.scalatest", "scalatest_2.13"),
-              "com.typesafe.play" %% "play-json" % "2.10.0-RC6"
+              "com.typesafe.play" %% "play-json" % "2.10.0-RC7"
             )
           } else {
             Seq(
