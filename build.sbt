@@ -1,7 +1,5 @@
 import Dependencies._
-
 import sbt._
-
 import Keys._
 import org.scalafmt.sbt.ScalafmtPlugin.autoImport._
 import play.sbt.PlayImport._
@@ -10,7 +8,7 @@ val projectName = "kindle-clock"
 val herokuAppNameRemote = projectName
 
 val defaultSettings = Seq(
-  scalaVersion := scala213,
+  scalaVersion := scala3,
   crossScalaVersions := Seq(scala213, scala3),
   scalacOptions ++= {
     if (isScala3.value) {
@@ -154,7 +152,7 @@ lazy val primary = project
     (Compile / unmanagedResourceDirectories) += baseDirectory.value / "conf",
     (Runtime / unmanagedClasspath) += baseDirectory.value / "conf",
     libraryDependencies ++= Dependencies.primary :+ guice,
-    javaAgents += "com.newrelic.agent.java" % "newrelic-agent" % "7.11.0"
+    // javaAgents += "com.newrelic.agent.java" % "newrelic-agent" % "7.11.0"
   )
   .dependsOn(
     domain % defaultDependencyConfiguration,
