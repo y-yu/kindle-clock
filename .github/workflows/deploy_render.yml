@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy Render
-        run: curl -sSfL "$RENDER_DEPLOY_URL"
+        run: curl -sSfL ${{ secrets.RENDER_DEPLOY_URL }}
