@@ -1,5 +1,4 @@
-
-
-GET       /       kindleclock.primary.controller.ShowKindleClockController.show
-GET       /clock       kindleclock.primary.controller.ShowKindleClockController.clock
-GET       /build_info       kindleclock.primary.controller.ShowBuildInfoController.show
+GET       /             kindleclock.primary.controller.ShowKindleClockController.show
+GET       /clock        kindleclock.primary.controller.ShowKindleClockController.clock
+GET       /build_info   kindleclock.primary.controller.ShowBuildInfoController.show
+GET       /healthz      kindleclock.primary.controller.HealthCheckController.show
