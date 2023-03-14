@@ -29,7 +29,7 @@ object Dependencies {
           } else {
             Seq(
               "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test,
-              "com.typesafe.play" %% "play-json" % "2.9.3"
+              "com.typesafe.play" %% "play-json" % "2.9.4"
             )
           })
   }
