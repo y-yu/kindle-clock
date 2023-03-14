@@ -4,7 +4,7 @@ import Keys._
 
 object Dependencies {
   val scala213 = "2.13.10"
-  val scala3 = "3.2.1"
+  val scala3 = "3.2.2"
 
   val isScala3 = Def.setting(
     CrossVersion.partialVersion(scalaVersion.value).exists(_._1 == 3)
@@ -18,7 +18,7 @@ object Dependencies {
       "com.google.inject" % "guice" % "5.1.0",
       scalaXmlDependency,
       "org.scalatest" %% "scalatest" % "3.2.15" % "test",
-      "org.mockito" % "mockito-core" % "4.11.0" % "test",
+      "org.mockito" % "mockito-core" % "5.2.0" % "test",
       "org.atnos" %% "eff" % effVersion,
       "org.atnos" %% "eff-monix" % effVersion
     ) ++ (if (scalaBinaryVersion.value == "3") {
