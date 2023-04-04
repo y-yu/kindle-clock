@@ -37,7 +37,7 @@ object Dependencies {
   lazy val useCase = Nil
 
   lazy val infra = Seq(
-    "redis.clients" % "jedis" % "4.3.1",
+    "redis.clients" % "jedis" % "4.3.2",
     "com.squareup.okhttp3" % "okhttp" % "4.10.0",
     "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.14.2" cross CrossVersion.for3Use2_13
   )
