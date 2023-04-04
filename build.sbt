@@ -5,7 +5,6 @@ import org.scalafmt.sbt.ScalafmtPlugin.autoImport._
 import play.sbt.PlayImport._
 
 val projectName = "kindle-clock"
-val herokuAppNameRemote = projectName
 
 val defaultSettings = Seq(
   scalaVersion := scala3,
@@ -45,13 +44,6 @@ val noPublishSettings = Seq(
   )
 )
 
-val herokuSettings =
-  Seq(
-    Compile / herokuAppName := herokuAppNameRemote,
-    Compile / herokuJdkVersion := "17",
-    Compile / herokuSkipSubProjects := false
-  )
-
 val defaultDependencyConfiguration = "test->test;compile->compile"
 
 lazy val root =
@@ -66,7 +58,6 @@ lazy val root =
       description := "Kindle Clock: CFW Kindle wallpaper generating server implementation",
       homepage := Some(url("https://github.com/y-yu")),
       licenses := Seq("MIT" -> url(s"https://github.com/y-yu/$projectName/blob/master/LICENSE")),
-      deployHeroku := (primary / Compile / deployHeroku).value,
       addCommandAlias("SetScala3", s"++ ${Dependencies.scala3}!")
     )
     .aggregate(
@@ -75,7 +66,7 @@ lazy val root =
       infra,
       primary
     )
-    .disablePlugins(PlayScala, PlayLayoutPlugin, ProtocPlugin, HerokuPlugin)
+    .disablePlugins(PlayScala, PlayLayoutPlugin, ProtocPlugin)
 
 lazy val remove213LibraryWhenScala3 =
   allDependencies := {
@@ -99,7 +90,7 @@ lazy val domain =
       (Compile / sourceGenerators) += BuildInfo.createBuildInfoFileTask.taskValue,
       remove213LibraryWhenScala3
     )
-    .disablePlugins(PlayScala, PlayLayoutPlugin, ProtocPlugin, HerokuPlugin)
+    .disablePlugins(PlayScala, PlayLayoutPlugin, ProtocPlugin)
 
 lazy val usecase =
   project
@@ -111,7 +102,7 @@ lazy val usecase =
     .dependsOn(
       domain % defaultDependencyConfiguration
     )
-    .disablePlugins(PlayScala, PlayLayoutPlugin, ProtocPlugin, HerokuPlugin)
+    .disablePlugins(PlayScala, PlayLayoutPlugin, ProtocPlugin)
 
 lazy val infra =
   project
@@ -141,18 +132,17 @@ lazy val infra =
     .dependsOn(
       domain % defaultDependencyConfiguration
     )
-    .disablePlugins(PlayScala, PlayLayoutPlugin, HerokuPlugin)
+    .disablePlugins(PlayScala, PlayLayoutPlugin)
 
 lazy val primary = project
   .in(file("module/primary"))
   .settings(
-    defaultSettings ++ herokuSettings: _*
+    defaultSettings: _*
   )
   .settings(
     (Compile / unmanagedResourceDirectories) += baseDirectory.value / "conf",
     (Runtime / unmanagedClasspath) += baseDirectory.value / "conf",
     libraryDependencies ++= Dependencies.primary :+ guice
-    // javaAgents += "com.newrelic.agent.java" % "newrelic-agent" % "7.11.0"
   )
   .dependsOn(
     domain % defaultDependencyConfiguration,
@@ -161,10 +151,6 @@ lazy val primary = project
   )
   .settings(
     libraryDependencies := libraryDependencies.value
-      // Remove scala-compiler added by Heroku sbt plugin.
-      .filterNot { x =>
-        x.organization == "org.scala-lang" && x.name == "scala-compiler"
-      }
       // Add `CrossVersion.for3Use2_13` for Play libraries added by Play sbt plugin.
       .map { x =>
         if (
@@ -182,4 +168,4 @@ lazy val primary = project
     dependencyOverrides += Dependencies.scalaXmlDependency
   )
   .disablePlugins(ProtocPlugin, PlayLayoutPlugin)
-  .enablePlugins(PlayScala, JavaAgent, JavaAppPackaging)
+  .enablePlugins(PlayScala, JavaAppPackaging)
