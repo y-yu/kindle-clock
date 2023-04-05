@@ -133,5 +133,5 @@ lazy val primary = project
     infra % defaultDependencyConfiguration,
     usecase % defaultDependencyConfiguration
   )
-  .disablePlugins(ProtocPlugin, PlayLayoutPlugin)
-  .enablePlugins(PlayScala, JavaAppPackaging)
+  .disablePlugins(ProtocPlugin, PlayLayoutPlugin, PlayAkkaHttpServer)
+  .enablePlugins(PlayScala, JavaAppPackaging, PlayNettyServer)
