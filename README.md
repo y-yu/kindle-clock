@@ -12,6 +12,11 @@ CFW Kindle wallpaper generating server implementation.
 - [Nature Remo](https://en.nature.global/products/)
 - [Awair](https://www.getawair.com/home/element)
 
+## Deploy to [Render](https://render.com/)
+
+- [RenderでScala + PlayなWebアプリを動かす](https://zenn.dev/yyu/articles/b927b46febef7f) (Japanese only)
+
+<!--
 ## Deploy to Heroku
 
 1. Create Heroku app whose name is `kindle-clock` by the command:
@@ -40,8 +45,6 @@ CFW Kindle wallpaper generating server implementation.
         ```console
         $ head -c 256 /dev/urandom | shasum -a 256
         ```
-    - `NEW_RELIC_APP_NAME`, `NEW_RELIC_LICENSE_KEY`
-        - Heroku NewRelic settings 
    ```console
    $ heroku config:set \
      NATURE_REMO_OAUTH_TOKEN=<<YOUR_NATURE_REMO_OAUTH_TOKEN>> \
@@ -49,15 +52,15 @@ CFW Kindle wallpaper generating server implementation.
      OPEN_WEATHER_MAP_ID=<<YOUR_LOCATION_ID>> \
      OPEN_WEATHER_MAP_APP_ID=<<YOUR_APP_ID>> \
      AUTH_TOKEN=<<YOUR_AUTH_TOKEN>> \
-     APPLICATION_SECRET=<<YOUR_APPLICATION_SECRET>> \
-     NEW_RELIC_APP_NAME=<<YOUR_NEW_RELIC_APP_NAME>> \
-     NEW_RELIC_LICENSE_KEY=<<YOUR_NEW_RELIC_LICENSE_KEY>>
+     APPLICATION_SECRET=<<YOUR_APPLICATION_SECRET>>
    ```
 4. Run the following command:
    ```console
    $ ./sbt stage deployHeroku
    ```
 5. Edit `client/launch.sh` for your sever information, copy it to your Kindle and set up `cron`
+
+-->
 
 ## How to run in local
 
@@ -74,9 +77,7 @@ AWAIR_OAUTH_TOKEN=<<YOUR_AWAIR_OAUTH_TOKEN>> \
 OPEN_WEATHER_MAP_ID=<<YOUR_LOCATION_ID>> \
 OPEN_WEATHER_MAP_APP_ID=<<YOUR_APP_ID>> \
 AWAIR_CACHE_EXPIRE_SECONDS=30 \
-AWAIR_INTERVAL_MINUTES=5 \
-NEW_RELIC_APP_NAME=<<YOUR_NEW_RELIC_APP_NAME>> \
-NEW_RELIC_LICENSE_KEY=<<YOUR_NEW_RELIC_LICENSE_KEY>>
+AWAIR_INTERVAL_MINUTES=5
 
 $ ./sbt "primary / run"
 ```
