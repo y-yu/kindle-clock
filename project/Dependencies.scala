@@ -4,7 +4,7 @@ import Keys._
 
 object Dependencies {
   val scala213 = "2.13.10"
-  val scala3 = "3.2.2"
+  val scala3 = "3.3.0-RC3"
 
   val isScala3 = Def.setting(
     CrossVersion.partialVersion(scalaVersion.value).exists(_._1 == 3)
@@ -20,26 +20,17 @@ object Dependencies {
       "org.scalatest" %% "scalatest" % "3.2.15" % "test",
       "org.mockito" % "mockito-core" % "5.2.0" % "test",
       "org.atnos" %% "eff" % effVersion,
-      "org.atnos" %% "eff-monix" % effVersion
-    ) ++ (if (scalaBinaryVersion.value == "3") {
-            Seq(
-              "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test cross CrossVersion.for3Use2_13 exclude ("org.scalatest", "scalatest_2.13"),
-              "com.typesafe.play" %% "play-json" % "2.10.0-RC7"
-            )
-          } else {
-            Seq(
-              "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test,
-              "com.typesafe.play" %% "play-json" % "2.9.4"
-            )
-          })
+      "org.atnos" %% "eff-monix" % effVersion,
+      "org.scalatestplus.play" %% "scalatestplus-play" % "6.0.0-M3" % Test,
+      "com.typesafe.play" %% "play-json" % "2.10.0-RC7"
+    )
   }
 
   lazy val useCase = Nil
 
   lazy val infra = Seq(
     "redis.clients" % "jedis" % "4.3.2",
-    "com.squareup.okhttp3" % "okhttp" % "4.10.0",
-    "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.14.2" cross CrossVersion.for3Use2_13
+    "com.squareup.okhttp3" % "okhttp" % "4.10.0"
   )
 
   lazy val primary = Seq(

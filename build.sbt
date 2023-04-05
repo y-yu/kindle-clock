@@ -12,9 +12,7 @@ val defaultSettings = Seq(
   scalacOptions ++= {
     if (isScala3.value) {
       Seq(
-        "-Ykind-projector",
-        "-source",
-        "3.0-migration"
+        "-Ykind-projector"
       )
     } else {
       Seq(
@@ -68,27 +66,13 @@ lazy val root =
     )
     .disablePlugins(PlayScala, PlayLayoutPlugin, ProtocPlugin)
 
-lazy val remove213LibraryWhenScala3 =
-  allDependencies := {
-    if (isScala3.value) {
-      // Discard dependencies for Scala 2.13 when using Scala3.
-      allDependencies.value.map { x =>
-        x.exclude("com.typesafe.play", "play-json_2.13")
-          .exclude("org.scala-lang.modules", "scala-xml_2.13")
-      }
-    } else {
-      allDependencies.value
-    }
-  }
-
 lazy val domain =
   project
     .in(file("module/domain"))
     .settings(defaultSettings ++ noPublishSettings: _*)
     .settings(
       libraryDependencies ++= Dependencies.domain.value,
-      (Compile / sourceGenerators) += BuildInfo.createBuildInfoFileTask.taskValue,
-      remove213LibraryWhenScala3
+      (Compile / sourceGenerators) += BuildInfo.createBuildInfoFileTask.taskValue
     )
     .disablePlugins(PlayScala, PlayLayoutPlugin, ProtocPlugin)
 
@@ -148,24 +132,6 @@ lazy val primary = project
     domain % defaultDependencyConfiguration,
     infra % defaultDependencyConfiguration,
     usecase % defaultDependencyConfiguration
-  )
-  .settings(
-    libraryDependencies := libraryDependencies.value
-      // Add `CrossVersion.for3Use2_13` for Play libraries added by Play sbt plugin.
-      .map { x =>
-        if (
-          x.organization == "com.typesafe.play" &&
-          x.crossVersion.isInstanceOf[CrossVersion.Binary] &&
-          !x.name.contains("play-json")
-        ) {
-          x cross CrossVersion.for3Use2_13
-        } else {
-          x
-        }
-      },
-    remove213LibraryWhenScala3,
-    // Avoid version conflict scala-xml from twirl-api.
-    dependencyOverrides += Dependencies.scalaXmlDependency
   )
   .disablePlugins(ProtocPlugin, PlayLayoutPlugin)
   .enablePlugins(PlayScala, JavaAppPackaging)
