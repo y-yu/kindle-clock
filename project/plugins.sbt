@@ -1,4 +1,4 @@
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.9.0-M3")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.9.0-M4")
 
 addSbtPlugin("com.thesamet" % "sbt-protoc" % "1.0.6")
 
