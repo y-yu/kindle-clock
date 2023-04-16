@@ -18,7 +18,7 @@ object Dependencies {
       "com.google.inject" % "guice" % "5.1.0",
       scalaXmlDependency,
       "org.scalatest" %% "scalatest" % "3.2.15" % "test",
-      "org.mockito" % "mockito-core" % "5.2.0" % "test",
+      "org.mockito" % "mockito-core" % "5.3.0" % "test",
       "org.atnos" %% "eff" % effVersion,
       "org.atnos" %% "eff-monix" % effVersion,
       "org.scalatestplus.play" %% "scalatestplus-play" % "6.0.0-M3" % Test,
