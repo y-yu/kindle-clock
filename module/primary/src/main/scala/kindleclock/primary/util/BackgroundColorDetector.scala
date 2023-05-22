@@ -1,7 +1,7 @@
 package kindleclock.primary.util
 
 import java.time.Clock
-import javax.inject.Inject
+import jakarta.inject.Inject
 import kindleclock.domain.lib.DefaultTimeZone
 import kindleclock.domain.model.KindleClockColor
 import kindleclock.primary.util.BackgroundColorDetector.KindleClockColorWithFontStyle

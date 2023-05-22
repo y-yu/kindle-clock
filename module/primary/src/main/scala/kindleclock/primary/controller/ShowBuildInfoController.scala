@@ -1,6 +1,6 @@
 package kindleclock.primary.controller
 
-import javax.inject.Inject
+import jakarta.inject.Inject
 import kindleclock.domain.lib.BuildInfo
 import play.api.libs.json.Json
 import play.api.mvc.AbstractController

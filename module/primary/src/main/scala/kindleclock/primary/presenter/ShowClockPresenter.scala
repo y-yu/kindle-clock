@@ -3,7 +3,7 @@ package kindleclock.primary.presenter
 import java.time.Clock
 import java.time.format.DateTimeFormatter
 import java.util.Locale
-import javax.inject.Inject
+import jakarta.inject.Inject
 import kindleclock.domain.lib.DefaultTimeZone
 import kindleclock.domain.model.device.Resolution
 import kindleclock.primary.util.BackgroundColorDetector

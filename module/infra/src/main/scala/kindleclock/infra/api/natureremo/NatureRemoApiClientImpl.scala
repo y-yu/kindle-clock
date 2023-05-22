@@ -1,6 +1,6 @@
 package kindleclock.infra.api.natureremo
 
-import javax.inject.Inject
+import jakarta.inject.Inject
 import kindleclock.domain.interface.infra.api.natureremo.NatureRemoApiClient
 import kindleclock.domain.model.ElectricEnergy
 import kindleclock.domain.model.Humidity

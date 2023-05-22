@@ -4,7 +4,7 @@ import play.api.mvc.AbstractController
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
 import play.api.mvc.ControllerComponents
-import javax.inject.Inject
+import jakarta.inject.Inject
 import kindleclock.domain.interface.usecase.GetKindleClockInfoUsecase
 import kindleclock.domain.model.device.Resolution
 import kindleclock.primary.action.AuthenticatedActionBuilder

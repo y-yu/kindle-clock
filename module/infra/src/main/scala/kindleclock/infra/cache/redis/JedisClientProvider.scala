@@ -1,8 +1,8 @@
 package kindleclock.infra.cache.redis
 
-import javax.inject.Inject
-import javax.inject.Provider
-import javax.inject.Singleton
+import jakarta.inject.Inject
+import jakarta.inject.Provider
+import jakarta.inject.Singleton
 import kindleclock.domain.model.config.redis.RedisConfiguration
 import org.slf4j.LoggerFactory
 import redis.clients.jedis.Jedis

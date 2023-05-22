@@ -1,6 +1,6 @@
 package kindleclock.primary.action
 
-import javax.inject.Inject
+import jakarta.inject.Inject
 import kindleclock.domain.model.config.auth.AuthenticationConfiguration
 import play.api.mvc.AbstractController
 import play.api.mvc.ActionBuilder

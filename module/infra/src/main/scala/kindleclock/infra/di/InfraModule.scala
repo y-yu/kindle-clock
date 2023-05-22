@@ -2,7 +2,7 @@ package kindleclock.infra.di
 
 import com.google.inject.AbstractModule
 import com.google.inject.TypeLiteral
-import javax.inject.Inject
+import jakarta.inject.Inject
 import kindleclock.infra.api.awair.AwairApiClientImpl
 import kindleclock.infra.api.natureremo.NatureRemoApiClientImpl
 import kindleclock.infra.api.openweathermap.OpenWeatherMapApiClientImpl

@@ -3,7 +3,7 @@ package kindleclock.usecase
 import kindleclock.domain.eff.KindleClockEitherEffect.KindleClockEither
 import java.time.Clock
 import java.time.ZonedDateTime
-import javax.inject.Inject
+import jakarta.inject.Inject
 import kindleclock.domain.interface.infra.api.awair.AwairApiClient
 import kindleclock.domain.interface.infra.api.natureremo.NatureRemoApiClient
 import kindleclock.domain.interface.infra.api.openweathermap.OpenWeatherMapApiClient

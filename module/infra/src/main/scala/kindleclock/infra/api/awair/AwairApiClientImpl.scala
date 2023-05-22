@@ -3,7 +3,7 @@ package kindleclock.infra.api.awair
 import kindleclock.domain.eff.KindleClockEitherEffect._kindleClockEither
 import java.time.Clock
 import java.time.ZonedDateTime
-import javax.inject.Inject
+import jakarta.inject.Inject
 import kindleclock.infra.datamodel.awair.AwairDataModel
 import kindleclock.domain.interface.infra.api.awair.AwairApiClient
 import kindleclock.domain.interface.infra.cache.CacheClient

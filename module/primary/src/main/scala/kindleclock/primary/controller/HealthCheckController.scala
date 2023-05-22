@@ -1,6 +1,6 @@
 package kindleclock.primary.controller
 
-import javax.inject.Inject
+import jakarta.inject.Inject
 import play.api.mvc.AbstractController
 import play.api.mvc.Action
 import play.api.mvc.AnyContent

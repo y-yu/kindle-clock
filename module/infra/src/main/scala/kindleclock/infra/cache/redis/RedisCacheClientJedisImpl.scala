@@ -1,7 +1,7 @@
 package kindleclock.infra.cache.redis
 
 import java.nio.charset.StandardCharsets
-import javax.inject.Inject
+import jakarta.inject.Inject
 import kindleclock.domain.interface.infra.cache.CacheClient
 import org.slf4j.LoggerFactory
 import redis.clients.jedis.Jedis

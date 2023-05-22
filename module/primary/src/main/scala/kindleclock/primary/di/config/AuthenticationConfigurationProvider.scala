@@ -1,7 +1,7 @@
 package kindleclock.primary.di.config
 
-import javax.inject.Inject
-import javax.inject.Provider
+import jakarta.inject.Inject
+import jakarta.inject.Provider
 import kindleclock.domain.model.config.auth.AuthenticationConfiguration
 import play.api.Configuration
 

@@ -1,8 +1,8 @@
 package kindleclock.primary.di.config
 
 import java.net.URI
-import javax.inject.Inject
-import javax.inject.Provider
+import jakarta.inject.Inject
+import jakarta.inject.Provider
 import kindleclock.domain.model.config.redis.RedisConfiguration
 import play.api.Configuration
 import scala.concurrent.duration.FiniteDuration
