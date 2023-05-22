@@ -17,7 +17,7 @@ object Dependencies {
     Seq(
       "com.google.inject" % "guice" % "5.1.0",
       scalaXmlDependency,
-      "org.scalatest" %% "scalatest" % "3.2.15" % "test",
+      "org.scalatest" %% "scalatest" % "3.2.16" % "test",
       "org.mockito" % "mockito-core" % "5.3.1" % "test",
       "org.atnos" %% "eff" % effVersion,
       "org.atnos" %% "eff-monix" % effVersion,
