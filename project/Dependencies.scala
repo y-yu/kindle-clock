@@ -11,7 +11,7 @@ object Dependencies {
   )
 
   private val effVersion = "6.0.3"
-  lazy val scalaXmlDependency = "org.scala-lang.modules" %% "scala-xml" % "2.1.0"
+  lazy val scalaXmlDependency = "org.scala-lang.modules" %% "scala-xml" % "2.2.0"
 
   lazy val domain = Def.setting {
     Seq(
