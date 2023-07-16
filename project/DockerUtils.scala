@@ -20,7 +20,8 @@ object DockerUtils {
     log: Logger
   ): Unit = {
     val command = List(
-      "docker-compose",
+      "docker",
+      "compose",
       "up",
       "--detach"
     ).mkString(" ")

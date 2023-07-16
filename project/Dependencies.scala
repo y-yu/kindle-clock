@@ -4,14 +4,14 @@ import Keys._
 
 object Dependencies {
   val scala213 = "2.13.11"
-  val scala3 = "3.3.0-RC6"
+  val scala3 = "3.3.0"
 
   val isScala3 = Def.setting(
     CrossVersion.partialVersion(scalaVersion.value).exists(_._1 == 3)
   )
 
   private val effVersion = "6.0.3"
-  lazy val scalaXmlDependency = "org.scala-lang.modules" %% "scala-xml" % "2.1.0"
+  lazy val scalaXmlDependency = "org.scala-lang.modules" %% "scala-xml" % "2.2.0"
 
   lazy val domain = Def.setting {
     Seq(
@@ -21,8 +21,8 @@ object Dependencies {
       "org.mockito" % "mockito-core" % "5.4.0" % "test",
       "org.atnos" %% "eff" % effVersion,
       "org.atnos" %% "eff-monix" % effVersion,
-      "org.scalatestplus.play" %% "scalatestplus-play" % "6.0.0-M4" % Test,
-      "com.typesafe.play" %% "play-json" % "2.10.0-RC8"
+      "org.scalatestplus.play" %% "scalatestplus-play" % "6.0.0-M6" % Test,
+      "com.typesafe.play" %% "play-json" % "2.10.0-RC9"
     )
   }
 
