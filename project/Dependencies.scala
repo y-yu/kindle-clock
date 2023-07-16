@@ -3,33 +3,33 @@ import sbt._
 import Keys._
 
 object Dependencies {
-  val scala213 = "2.13.10"
-  val scala3 = "3.3.0-RC5"
+  val scala213 = "2.13.11"
+  val scala3 = "3.3.0"
 
   val isScala3 = Def.setting(
     CrossVersion.partialVersion(scalaVersion.value).exists(_._1 == 3)
   )
 
   private val effVersion = "6.0.3"
-  lazy val scalaXmlDependency = "org.scala-lang.modules" %% "scala-xml" % "2.1.0"
+  lazy val scalaXmlDependency = "org.scala-lang.modules" %% "scala-xml" % "2.2.0"
 
   lazy val domain = Def.setting {
     Seq(
       "com.google.inject" % "guice" % "7.0.0",
       scalaXmlDependency,
-      "org.scalatest" %% "scalatest" % "3.2.15" % "test",
-      "org.mockito" % "mockito-core" % "5.3.1" % "test",
+      "org.scalatest" %% "scalatest" % "3.2.16" % "test",
+      "org.mockito" % "mockito-core" % "5.4.0" % "test",
       "org.atnos" %% "eff" % effVersion,
       "org.atnos" %% "eff-monix" % effVersion,
-      "org.scalatestplus.play" %% "scalatestplus-play" % "6.0.0-M3" % Test,
-      "com.typesafe.play" %% "play-json" % "2.10.0-RC7"
+      "org.scalatestplus.play" %% "scalatestplus-play" % "6.0.0-M6" % Test,
+      "com.typesafe.play" %% "play-json" % "2.10.0-RC9"
     )
   }
 
   lazy val useCase = Nil
 
   lazy val infra = Seq(
-    "redis.clients" % "jedis" % "4.3.2",
+    "redis.clients" % "jedis" % "4.4.3",
     "com.squareup.okhttp3" % "okhttp" % "4.11.0"
   )
 
