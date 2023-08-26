@@ -34,7 +34,7 @@ object Dependencies {
   )
 
   lazy val primary = Seq(
-    "org.apache.xmlgraphics" % "batik-transcoder" % "1.16",
-    "org.apache.xmlgraphics" % "batik-codec" % "1.16"
+    "org.apache.xmlgraphics" % "batik-transcoder" % "1.17",
+    "org.apache.xmlgraphics" % "batik-codec" % "1.17"
   )
 }
