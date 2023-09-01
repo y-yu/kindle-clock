@@ -14,13 +14,14 @@ import scala.xml.Elem
 class SvgToPngTransformer {
   def transform(
     svg: Elem,
-    backgroundColor: KindleClockColor
+    backgroundColor: KindleClockColor,
+    uri: String
   ): Array[Byte] = {
     val svgReader = new StringReader(svg.toString())
     val doc =
       new SAXSVGDocumentFactory(XMLResourceDescriptor.getXMLParserClassName)
         .createSVGDocument(
-          null, // Is it actually OK?
+          uri,
           svgReader
         )
 

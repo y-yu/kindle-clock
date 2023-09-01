@@ -68,7 +68,8 @@ class ShowClockPresenter @Inject() (
       Ok(
         svgToPngTransformer.transform(
           svg,
-          backgroundColorAndStyle.background
+          backgroundColorAndStyle.background,
+          kindleclock.primary.controller.routes.ShowKindleClockController.clock.url()
         )
       ).as("image/png")
     )

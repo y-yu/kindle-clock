@@ -42,7 +42,8 @@ class ShowInfoPresenter @Inject() (
             backgroundColorAndStyle.fontStyle,
             resolution
           ),
-          backgroundColorAndStyle.background
+          backgroundColorAndStyle.background,
+          kindleclock.primary.controller.routes.ShowKindleClockController.show.url()
         )
       ).as("image/png")
     )
