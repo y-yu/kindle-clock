@@ -9,8 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java-distribution: [ 'temurin' ]
-        java-version: [ '11', '17' ]
+        java-distribution: [ 'zulu' ]
+        java-version: [ '17', '21' ]
         setScala3: [ '', 'SetScala3' ]
     steps:
       - uses: actions/checkout@v4
