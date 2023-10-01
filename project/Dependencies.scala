@@ -10,7 +10,7 @@ object Dependencies {
     CrossVersion.partialVersion(scalaVersion.value).exists(_._1 == 3)
   )
 
-  private val effVersion = "7.0.0"
+  private val effVersion = "7.0.1"
   lazy val scalaXmlDependency = "org.scala-lang.modules" %% "scala-xml" % "2.2.0"
 
   lazy val domain = Def.setting {
