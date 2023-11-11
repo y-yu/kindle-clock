@@ -22,7 +22,7 @@ object Dependencies {
       "org.atnos" %% "eff" % effVersion,
       "org.atnos" %% "eff-monix" % effVersion,
       "org.playframework" %% "play-json" % "3.0.0",
-      "org.scalatestplus.play" %% "scalatestplus-play" % "7.0.0" % Test
+      "org.scalatestplus.play" %% "scalatestplus-play" % "6.0.0" % Test
     )
   }
 
