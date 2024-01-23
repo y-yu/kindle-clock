@@ -9,8 +9,8 @@ import kindleclock.domain.model.config.api.NatureRemoConfiguration
 import kindleclock.domain.model.natureremo.NatureRemoRoomInfo
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
+import play.api.libs.functional.syntax.*
+import play.api.libs.json.*
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.concurrent.blocking

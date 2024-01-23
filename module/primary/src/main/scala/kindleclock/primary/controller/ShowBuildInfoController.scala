@@ -21,7 +21,8 @@ class ShowBuildInfoController @Inject() (
           "build_info" -> Json.obj(
             "scala_version" -> BuildInfo.scalaVersion,
             "commit_hash" -> BuildInfo.commitHash,
-            "java_version" -> javaVersion
+            "java_version" -> javaVersion,
+            "play_version" -> BuildInfo.playVersion
           )
         )
       )
