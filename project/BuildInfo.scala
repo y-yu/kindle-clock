@@ -2,6 +2,7 @@ import sbt._
 
 import sbt.Keys._
 import com.github.sbt.git.SbtGit.git
+import play.core.PlayVersion
 
 object BuildInfo {
   lazy val createBuildInfoFileTask: Def.Initialize[Task[Seq[File]]] = Def.task {
@@ -20,6 +21,8 @@ object BuildInfo {
          |  val scalaVersion: String = "${scalaVersion.value}"
          |  
          |  val commitHash: String = "${currentCommitHash}"
+         |
+         |  val playVersion: String = "${PlayVersion.current}"
          |}
          |""".stripMargin
 

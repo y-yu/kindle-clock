@@ -1,20 +1,18 @@
 package kindleclock.primary.action
 
-import akka.stream.Materializer
 import kindleclock.domain.model.config.auth.AuthenticationConfiguration
 import org.scalatest.diagrams.Diagrams
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.http.Writeable._
+import play.api.http.Writeable.*
 import play.api.mvc.Results.Ok
 import play.api.test.FakeRequest
-import play.api.test.Helpers._
-import scala.concurrent.duration._
+import play.api.test.Helpers.*
+import play.api.Play.materializer
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class AuthenticatedActionBuilderTest extends AnyWordSpec with GuiceOneAppPerSuite with Diagrams {
-  implicit lazy val materializer: Materializer = app.materializer
-
   trait SetUp {
     val mockControllerComponents = stubControllerComponents()
 

@@ -60,7 +60,7 @@ class OpenWeatherMapApiClientImpl @Inject() (
 }
 
 object OpenWeatherMapApiClientImpl {
-  import WeatherIcon._
+  import WeatherIcon.*
 
   // See https://openweathermap.org/weather-conditions
   def convertToIcon(iconString: String): JsResult[WeatherIcon] =
