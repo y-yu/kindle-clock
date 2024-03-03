@@ -3,7 +3,7 @@ import sbt._
 import Keys._
 
 object Dependencies {
-  val scala213 = "2.13.12"
+  val scala213 = "2.13.13"
   val scala3 = "3.3.3"
 
   val isScala3 = Def.setting(
@@ -18,7 +18,7 @@ object Dependencies {
       "com.google.inject" % "guice" % "6.0.0",
       scalaXmlDependency,
       "org.scalatest" %% "scalatest" % "3.2.18" % "test",
-      "org.mockito" % "mockito-core" % "5.10.0" % "test",
+      "org.mockito" % "mockito-core" % "5.11.0" % "test",
       "org.atnos" %% "eff" % effVersion,
       "org.atnos" %% "eff-monix" % effVersion,
       "org.playframework" %% "play-json" % "3.0.2",
@@ -29,7 +29,7 @@ object Dependencies {
   lazy val useCase = Nil
 
   lazy val infra = Seq(
-    "redis.clients" % "jedis" % "5.1.0",
+    "redis.clients" % "jedis" % "5.1.1",
     "com.squareup.okhttp3" % "okhttp" % "4.12.0"
   )
 
