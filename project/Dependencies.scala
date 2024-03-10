@@ -29,7 +29,7 @@ object Dependencies {
   lazy val useCase = Nil
 
   lazy val infra = Seq(
-    "redis.clients" % "jedis" % "5.1.1",
+    "redis.clients" % "jedis" % "5.1.2",
     "com.squareup.okhttp3" % "okhttp" % "4.12.0"
   )
 
