@@ -21,7 +21,7 @@ object Dependencies {
       "org.mockito" % "mockito-core" % "5.11.0" % "test",
       "org.atnos" %% "eff" % effVersion,
       "org.atnos" %% "eff-monix" % effVersion,
-      "org.playframework" %% "play-json" % "3.0.2",
+      "org.playframework" %% "play-json" % "3.0.3",
       "org.scalatestplus.play" %% "scalatestplus-play" % "7.0.1" % Test
     )
   }
