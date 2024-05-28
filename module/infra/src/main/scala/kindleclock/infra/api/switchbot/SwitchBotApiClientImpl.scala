@@ -14,6 +14,7 @@ import kindleclock.domain.model.switchbot.SwitchBotMeterInfo
 import kindleclock.infra.datamodel.switchbot.SwitchBotDevicesDataModel
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.slf4j.LoggerFactory
 import play.api.libs.json.Reads
 import play.api.libs.functional.syntax.*
 import play.api.libs.json.*
@@ -30,6 +31,8 @@ class SwitchBotApiClientImpl @Inject() (
   executionContext: ExecutionContext
 ) extends SwitchBotApiClient {
   import SwitchBotApiClientImpl.*
+
+  private val logger = LoggerFactory.getLogger(this.getClass)
 
   private def requestWithAuthorization(path: String): Request =
     new Request.Builder()
@@ -125,7 +128,15 @@ class SwitchBotApiClientImpl @Inject() (
           Json.parse(allDevicesString)
         )
         .fold(
-          error =>
+          { error =>
+            logger.warn(
+              s"""JSON parse error!
+                 |  error: ${error.mkString(",")}
+                 |  response: $$allDevicesString
+                 |""".stripMargin
+            )
+            Future.successful(Map.empty[SwitchBotDeviceType, String])
+            /*
             Future.failed(
               new IllegalArgumentException(
                 s"""JSON parse error!
@@ -133,7 +144,8 @@ class SwitchBotApiClientImpl @Inject() (
                    |  response: $allDevicesString
                    |""".stripMargin
               )
-            ),
+            )*/
+          },
           Future.successful
         )
   } yield allDevices
