@@ -10,7 +10,6 @@ object Dependencies {
     CrossVersion.partialVersion(scalaVersion.value).exists(_._1 == 3)
   )
 
-  private val effVersion = "7.0.3"
   lazy val scalaXmlDependency = "org.scala-lang.modules" %% "scala-xml" % "2.3.0"
 
   lazy val domain = Def.setting {
@@ -19,8 +18,6 @@ object Dependencies {
       scalaXmlDependency,
       "org.scalatest" %% "scalatest" % "3.2.18" % "test",
       "org.mockito" % "mockito-core" % "5.12.0" % "test",
-      "org.atnos" %% "eff" % effVersion,
-      "org.atnos" %% "eff-monix" % effVersion,
       "org.playframework" %% "play-json" % "3.0.3",
       "org.scalatestplus.play" %% "scalatestplus-play" % "7.0.1" % Test
     )

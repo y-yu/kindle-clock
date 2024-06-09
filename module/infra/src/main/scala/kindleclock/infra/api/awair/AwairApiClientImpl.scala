@@ -1,6 +1,5 @@
 package kindleclock.infra.api.awair
 
-import kindleclock.domain.eff.KindleClockEitherEffect._kindleClockEither
 import java.time.Clock
 import java.time.ZonedDateTime
 import javax.inject.Inject
@@ -19,11 +18,6 @@ import kindleclock.domain.model.config.api.AwairConfiguration
 import kindleclock.domain.model.error.KindleClockError
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import monix.eval.Task
-import org.atnos.eff.Eff
-import org.atnos.eff.addon.monix.task.*
-import org.atnos.eff.either.*
-import org.atnos.eff.addon.monix.task._task
 import org.slf4j.LoggerFactory
 import play.api.libs.json.Reads
 import scala.concurrent.Future
@@ -62,21 +56,10 @@ class AwairApiClientImpl @Inject() (
       )
       .build()
 
-  def getRoomInfo[R: _task: _kindleClockEither]: Eff[R, AwairRoomInfo] =
-    fromTask(Task.deferFutureAction { implicit ec =>
-      getRoomInfo()
-        .map(x => Right(x))
-        .recover { case e: AwairApiError =>
-          Left(e)
-        }
-    }).flatMap(
-      fromEither[R, KindleClockError, AwairRoomInfo]
-    )
-
-  private[awair] def getRoomInfo(): Future[AwairRoomInfo] = {
+  def getRoomInfo(): Future[Either[KindleClockError, AwairRoomInfo]] = {
     val now = ZonedDateTime.now(clock.withZone(DefaultTimeZone.jst))
 
-    for {
+    val f = for {
       cachedDataOpt <- cacheClient.get(awairConfiguration.cacheKeyName)
       isTiming = now.getMinute % awairConfiguration.intervalMinutes == 0
       awairRoomInfo <- (isTiming, cachedDataOpt) match {
@@ -109,6 +92,8 @@ class AwairApiClientImpl @Inject() (
           )
       }
     } yield awairRoomInfo
+
+    f.map(Right.apply).recover { case e: AwairApiError => Left(e) }
   }
 
   private def getFromApi: Future[AwairRoomInfo] =

@@ -1,11 +1,10 @@
 package kindleclock.domain.interface.infra.api.awair
 
-import kindleclock.domain.eff.KindleClockEitherEffect._kindleClockEither
 import kindleclock.domain.model.awair.AwairRoomInfo
-import org.atnos.eff.Eff
-import org.atnos.eff.addon.monix.task._task
+import kindleclock.domain.model.error.KindleClockError
+
 import scala.concurrent.Future
 
 trait AwairApiClient {
-  def getRoomInfo[R: _task: _kindleClockEither]: Eff[R, AwairRoomInfo]
+  def getRoomInfo(): Future[Either[KindleClockError, AwairRoomInfo]]
 }
