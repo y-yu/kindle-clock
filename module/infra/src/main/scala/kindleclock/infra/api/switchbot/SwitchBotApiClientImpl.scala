@@ -152,19 +152,10 @@ class SwitchBotApiClientImpl @Inject() (
             logger.warn(
               s"""JSON parse error!
                  |  error: ${error.mkString(",")}
-                 |  response: $$allDevicesString
+                 |  response: $allDevicesString
                  |""".stripMargin
             )
             Future.successful(Map.empty[SwitchBotDeviceType, String])
-            /*
-            Future.failed(
-              new IllegalArgumentException(
-                s"""JSON parse error!
-                   |  error: ${error.mkString(",")}
-                   |  response: $allDevicesString
-                   |""".stripMargin
-              )
-            )*/
           },
           Future.successful
         )
