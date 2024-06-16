@@ -63,7 +63,7 @@ class SwitchBotApiClientImpl @Inject() (
       .build()
   }
 
-  private val getAllDevicesRequest: Request =
+  private def getAllDevicesRequest(): Request =
     requestWithAuthorization("/v1.1/devices")
 
   private def getMeterInfoRequest(deviceId: String): Request =
@@ -136,7 +136,7 @@ class SwitchBotApiClientImpl @Inject() (
     allDevicesString <- Future(
       blocking(
         okHttpClient
-          .newCall(getAllDevicesRequest)
+          .newCall(getAllDevicesRequest())
           .execute()
           .body()
           .string()
