@@ -18,6 +18,11 @@ import org.slf4j.LoggerFactory
 import play.api.libs.json.Reads
 import play.api.libs.functional.syntax.*
 import play.api.libs.json.*
+import java.nio.charset.StandardCharsets
+import java.util.Base64
+import java.util.UUID
+import javax.crypto.Mac
+import javax.crypto.spec.SecretKeySpec
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.concurrent.blocking
@@ -34,17 +39,32 @@ class SwitchBotApiClientImpl @Inject() (
 
   private val logger = LoggerFactory.getLogger(this.getClass)
 
-  private def requestWithAuthorization(path: String): Request =
+  /** @see
+    *   [[https://github.com/OpenWonderLabs/SwitchBotAPI?tab=readme-ov-file#authentication]]
+    */
+  private def requestWithAuthorization(path: String): Request = {
+    val nonce = UUID.randomUUID.toString
+    val time = s"${clock.instant().toEpochMilli}"
+    val data = switchBotConfiguration.oauthToken + time + nonce
+
+    val secretKeySpec =
+      new SecretKeySpec(switchBotConfiguration.oauthSecret.getBytes(StandardCharsets.UTF_8), "HmacSHA256")
+    val mac = Mac.getInstance("HmacSHA256")
+    mac.init(secretKeySpec)
+    val signature =
+      new String(Base64.getEncoder.encode(mac.doFinal(data.getBytes(StandardCharsets.UTF_8))), StandardCharsets.UTF_8)
+
     new Request.Builder()
       .url(switchBotConfiguration.switchBotEndpoint.resolve(path).toURL)
-      .addHeader(
-        "Authorization",
-        switchBotConfiguration.oauthToken
-      )
+      .addHeader("Authorization", switchBotConfiguration.oauthToken)
+      .addHeader("sign", signature)
+      .addHeader("nonce", nonce)
+      .addHeader("t", time)
       .build()
+  }
 
   private val getAllDevicesRequest: Request =
-    requestWithAuthorization("/v1.0/devices")
+    requestWithAuthorization("/v1.1/devices")
 
   private def getMeterInfoRequest(deviceId: String): Request =
     requestWithAuthorization(s"/v1.0/devices/$deviceId/status")

@@ -6,6 +6,7 @@ import scala.concurrent.duration.Duration
 case class SwitchBotConfiguration(
   switchBotEndpoint: URI,
   oauthToken: String,
+  oauthSecret: String,
   cacheExpire: Duration,
   intervalMinutes: Int,
   cacheKeyName: String
