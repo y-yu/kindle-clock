@@ -8,7 +8,7 @@ val projectName = "kindle-clock"
 
 val defaultSettings = Seq(
   scalaVersion := scala3,
-  crossScalaVersions := Seq(scala213, scala3),
+  crossScalaVersions := Seq(scala3, scala213),
   scalacOptions ++= {
     if (isScala3.value) {
       Seq(
@@ -49,14 +49,15 @@ lazy val root =
     .in(file("."))
     .settings(noPublishSettings: _*)
     .settings(
-      scalaVersion := scala213,
+      scalaVersion := scala3,
       crossScalaVersions := Seq(scala213, scala3),
       organization := "com.github.y-yu",
       name := projectName,
       description := "Kindle Clock: CFW Kindle wallpaper generating server implementation",
       homepage := Some(url("https://github.com/y-yu")),
       licenses := Seq("MIT" -> url(s"https://github.com/y-yu/$projectName/blob/master/LICENSE")),
-      addCommandAlias("SetScala3", s"++ ${Dependencies.scala3}!")
+      addCommandAlias("SetScala3", s"++ ${Dependencies.scala3}!"),
+      addCommandAlias("SetScala2", s"++ ${Dependencies.scala213}!")
     )
     .aggregate(
       domain,

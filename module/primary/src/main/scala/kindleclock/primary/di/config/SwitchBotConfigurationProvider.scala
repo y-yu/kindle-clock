@@ -13,6 +13,7 @@ class SwitchBotConfigurationProvider @Inject() (
   private lazy val config = SwitchBotConfiguration(
     switchBotEndpoint = new URI(configuration.get[String]("switchbot.endpoint")),
     oauthToken = configuration.get[String]("switchbot.oauth.token"),
+    oauthSecret = configuration.get[String]("switchbot.oauth.secret"),
     cacheExpire = configuration.get[Int]("switchbot.cache.expire-seconds").seconds,
     intervalMinutes = configuration.get[Int]("switchbot.interval-minutes"),
     cacheKeyName = configuration.get[String]("switchbot.cache.key-name")
