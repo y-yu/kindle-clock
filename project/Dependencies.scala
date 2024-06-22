@@ -18,7 +18,7 @@ object Dependencies {
       scalaXmlDependency,
       "org.scalatest" %% "scalatest" % "3.2.18" % "test",
       "org.mockito" % "mockito-core" % "5.12.0" % "test",
-      "org.playframework" %% "play-json" % "3.0.3",
+      "org.playframework" %% "play-json" % "3.0.4",
       "org.scalatestplus.play" %% "scalatestplus-play" % "7.0.1" % Test
     )
   }
