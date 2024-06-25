@@ -16,7 +16,7 @@ object Dependencies {
     Seq(
       "com.google.inject" % "guice" % "6.0.0",
       scalaXmlDependency,
-      "org.scalatest" %% "scalatest" % "3.2.18" % "test",
+      "org.scalatest" %% "scalatest" % "3.2.19" % "test",
       "org.mockito" % "mockito-core" % "5.12.0" % "test",
       "org.playframework" %% "play-json" % "3.0.4",
       "org.scalatestplus.play" %% "scalatestplus-play" % "7.0.1" % Test
