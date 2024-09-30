@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Docker pull
-        run: docker-compose pull
+        run: docker compose pull
       - uses: actions/setup-java@v4
         with:
           distribution: ${{ matrix.java-distribution }}
