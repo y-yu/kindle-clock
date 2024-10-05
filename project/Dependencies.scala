@@ -4,7 +4,7 @@ import Keys._
 
 object Dependencies {
   val scala213 = "2.13.15"
-  val scala3 = "3.3.3"
+  val scala3 = "3.3.4"
 
   val isScala3 = Def.setting(
     CrossVersion.partialVersion(scalaVersion.value).exists(_._1 == 3)
