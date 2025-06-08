@@ -1,6 +1,6 @@
 addSbtPlugin("org.playframework" % "sbt-plugin" % "3.0.7")
 
-addSbtPlugin("com.thesamet" % "sbt-protoc" % "1.0.7")
+addSbtPlugin("com.thesamet" % "sbt-protoc" % "1.0.8")
 
 addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.4")
 
