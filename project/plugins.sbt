@@ -1,4 +1,4 @@
-addSbtPlugin("org.playframework" % "sbt-plugin" % "3.0.7")
+addSbtPlugin("org.playframework" % "sbt-plugin" % "3.0.8")
 
 addSbtPlugin("com.thesamet" % "sbt-protoc" % "1.0.8")
 
