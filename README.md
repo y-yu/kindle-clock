@@ -1,6 +1,11 @@
 Kindle Clock
 =====================================
 
+> [!IMPORTANT]
+> This repository is NOT under mentenance.
+> Please consider to use [Go implementation: kindle-clock-go](https://github.com/y-yu/kindle-clock-go).
+
+
 ![CI](https://github.com/y-yu/kindle-clock/workflows/CI/badge.svg)
 
 CFW Kindle wallpaper generating server implementation.
