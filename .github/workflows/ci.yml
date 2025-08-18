@@ -13,7 +13,7 @@ jobs:
         java-version: [ '17', '21' ]
         setScala3: [ '', 'SetScala3' ]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Docker pull
         run: docker compose pull
       - uses: actions/setup-java@v4
