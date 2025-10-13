@@ -26,8 +26,8 @@ object Dependencies {
   lazy val useCase = Nil
 
   lazy val infra = Seq(
+    "com.squareup.okhttp3" % "okhttp" % "5.2.1"
     "redis.clients" % "jedis" % "5.1.5",
-    "com.squareup.okhttp3" % "okhttp" % "4.12.0"
   )
 
   lazy val primary = Seq(
