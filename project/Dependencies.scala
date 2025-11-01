@@ -27,7 +27,7 @@ object Dependencies {
 
   lazy val infra = Seq(
     "redis.clients" % "jedis" % "7.0.0",
-    "com.squareup.okhttp3" % "okhttp" % "4.12.0"
+    "com.squareup.okhttp3" % "okhttp" % "5.3.0"
   )
 
   lazy val primary = Seq(
