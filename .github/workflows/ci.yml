@@ -21,6 +21,6 @@ jobs:
           distribution: ${{ matrix.java-distribution }}
           java-version: ${{ matrix.java-version }}
           cache: 'sbt'
-      - uses: coursier/cache-action@v6
+      - uses: coursier/cache-action@v7
       - name: Test
         run: ./sbt ${{ matrix.setScala3 }} stage test
